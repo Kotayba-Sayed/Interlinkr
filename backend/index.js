@@ -1,7 +1,18 @@
 const express = require('express');
 const app = express();
+const Routes = require('./routes/route');
+
+
+const db = require('./models');
+
+app.use(express.json());
+app.use("/route", Routes);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+
+
+db.sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  }); console.log('Database schema updated');
 });
