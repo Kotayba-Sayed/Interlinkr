@@ -13,6 +13,29 @@ router.post("/", async (req, res) => {
   res.json(post);
 });
 
+router.put("/", async (req, res) => {
+  const postId = req.params.id;
+  const updatedPostData = req.body;
+
+  try {
+    // Find the post by ID
+    const post = await Post.findByPk(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    // Update the post
+    await post.update(updatedPostData);
+
+    res.json(post);
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
 
 
 module.exports = router;
