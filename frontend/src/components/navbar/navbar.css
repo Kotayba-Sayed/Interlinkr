@@ -1,0 +1,60 @@
+nav {
+    height: 60px;
+    display: flex;
+    background-color: #F1F1F1;
+    align-items: center;
+    padding-left: 5px;
+    box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    border-bottom: rgb(119, 118, 118) 1px solid;
+}
+  
+nav > .logo-container > #logo {
+    width: 49px;
+    height: 47px;
+}
+
+.logo-container {
+    order: 1;
+    display: flex;
+    align-items: center;
+}
+
+.logo-container > #logo-text {
+    font-size: 20px;
+    /* font-weight: bold; */
+}
+
+.icon-container {
+    order: 2;
+    display: flex;
+    height: 47px;
+    justify-content: space-between;
+    align-items: center;
+    flex-basis: 25%;
+    margin-right: 5%;
+}
+
+.icon-container > #home-logo, #users-logo, #info-logo {
+    height: 43px;
+    width: 43px;
+}
+
+
+#home-logo:hover, #users-logo:hover, #info-logo:hover {
+    transform: scale(1.1);
+    /* add underline feature */
+    border-bottom: 3px solid black;
+}
+
+.profile-container {
+    display: flex;
+    order: 3;
+    flex-basis: 5%;
+
+}
+
+.profile-container > #profile-logo {
+    height: 43px;
+    width: 43px;
+}
