@@ -1,12 +1,17 @@
 import Navbar from "./components/navbar/Navbar"
 import CreatePost from "./components/home/CreatePost";
 import './App.css';
+import Register from "./components/register/Register";
+import Login from "./components/login/Login";
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <CreatePost />
+      {/* <Navbar />
+      <CreatePost /> */}
+      <Login />
+      <Register />
+
     </div>
   );
 }

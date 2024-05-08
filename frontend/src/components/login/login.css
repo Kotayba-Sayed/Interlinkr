@@ -1,0 +1,137 @@
+body {
+    background-color: #818181;
+}
+section {
+    width: 100%;
+    max-width: 420px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.336);
+    margin: 5rem;
+    overflow: hidden;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding: 0 1rem 1rem 1rem;
+}
+
+.links {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 24px;
+    border-bottom: 1px solid black;
+}
+
+.component-focus {
+    background-color: #81198C;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+}
+
+.component-focus > a {
+    color: white;
+}
+
+.component-unfocus {
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+}
+
+.component-unfocus > a {
+    color: #000;
+}
+
+.component-focus > a:hover,
+.component-unfocus > a:hover {
+    text-decoration: none;
+}
+
+input[type="text"],
+input[type="password"],
+button,
+h1,
+textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+input[type="text"],
+input[type="password"] {
+    background-color: #d9d9d9;
+}
+
+label,
+button {
+  margin-top: 1rem;
+}
+
+button {
+    align-self: center;
+    background-color: #81198C;
+    color: white;
+    border: none;
+    width: 115px;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.336);
+}
+
+h1 {
+    text-align: center;
+    padding-top: 1.5rem;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions > svg {
+    margin-right: 0.5rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: rgb(77, 171, 77);
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: rgb(170, 45, 45);
+    margin-left: 0.25rem;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.line {
+    display: inline-block;
+}
