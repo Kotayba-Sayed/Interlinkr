@@ -1,7 +1,7 @@
 body {
     background-color: #818181;
 }
-section {
+.registration-section {
     width: 100%;
     max-width: 420px;
     min-height: 400px;
@@ -12,9 +12,10 @@ section {
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.336);
     margin: 5rem;
     overflow: hidden;
+    align-self: center;
 }
 
-form {
+.registration-form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -22,56 +23,65 @@ form {
     padding: 1rem;
 }
 
-.links {
+.registration-links {
     display: flex;
     justify-content: space-evenly;
     font-size: 24px;
     border-bottom: 1px solid black;
+    
 }
 
-#sign-in {
-    background-color: #81198C;
+.login-view {
+    border: none;
+    background-color: transparent;
     width: 100%;
     padding: 1rem;
-    text-align: center;
 }
 
-#sign-in > a {
+.login-view:focus {
+    outline: none;
+}
+
+.component-focus {
+    background-color: #81198C;
+    width: 100%;
+}
+
+.component-focus > .login-view {
     color: white;
 }
 
-#sign-up {
+.component-focus > .login-view:hover {
+    background-color: #62146ad6;
+}
+
+.component-unfocus {
     width: 100%;
-    padding: 1rem;
-    text-align: center;
 }
 
-#sign-up > a {
-    color: #000;
+.component-unfocus > .login-view:hover {
+    background-color: #d9d9d9;
 }
 
-input[type="text"],
-input[type="password"],
-button,
-h1,
-textarea {
+.login-input,
+.login-button,
+.login-text {
   font-family: 'Nunito', sans-serif;
   font-size: 18px;
   padding: 0.25rem;
   border-radius: 0.5rem;
 }
 
-input[type="text"],
-input[type="password"] {
+.login-input {
     background-color: #d9d9d9;
 }
 
-label,
-button {
+.login-label,
+.login-button {
   margin-top: 1rem;
 }
 
-button {
+.login-button {
     align-self: center;
     background-color: #81198C;
     color: white;
@@ -80,12 +90,12 @@ button {
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.336);
 }
 
-h1 {
+.login-text {
     text-align: center;
-    padding-top: 1.5rem;
+    padding-top: 2rem;
 }
 
-.instructions {
+.login-instructions {
     font-size: 0.75rem;
     border-radius: 0.5rem;
     background: #000;
@@ -95,37 +105,33 @@ h1 {
     bottom: -10px;
 }
 
-.instructions > svg {
+.login-instructions > svg {
     margin-right: 0.5rem;
 }
 
-.offscreen {
+.login-offscreen {
     position: absolute;
     left: -9999px;
 }
 
-.hide {
+.hide-login {
     display: none;
 }
 
-.valid {
+.login-valid {
     color: rgb(77, 171, 77);
     margin-left: 0.25rem;
 }
 
-.invalid {
+.login-invalid {
     color: rgb(170, 45, 45);
     margin-left: 0.25rem;
 }
 
-.errmsg {
+.login-errmsg {
     background-color: lightpink;
     color: firebrick;
     font-weight: bold;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
-}
-
-.line {
-    display: inline-block;
 }

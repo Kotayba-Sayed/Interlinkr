@@ -1,4 +1,4 @@
-import "./login.css";
+import "./register.css";
 import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "../context/AuthProvider";
 import axios from 'axios';
@@ -72,7 +72,7 @@ export default function Login() {
                 </section>
             ) : (
                 <section className="registration-section">
-                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+                    <p ref={errRef} className={errMsg ? "login-errmsg" : "login-offscreen"} aria-live="assertive">
                         {errMsg}
                     </p>
                     <div className="registration-links">

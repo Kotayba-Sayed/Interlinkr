@@ -2,7 +2,8 @@ import Navbar from "./components/navbar/Navbar"
 import CreatePost from "./components/home/CreatePost";
 import './App.css';
 import Register from "./components/register/Register";
-import Login from "./components/login/Login";
+import Login from "./components/register/Login";
+
 
 function App() {
   return (

@@ -118,28 +118,29 @@ export default function Register() {
 
 
     return (
-        <section>
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+        <section className="registration-section">
+            <p ref={errRef} className={errMsg ? "login-errmsg" : "login-offscreen"} aria-live="assertive">
                 {errMsg}
             </p>
-            <div className="links">
+            <div className="registration-links">
                 <div class="component-unfocus">
-                    <a href="#">Sign In</a>
+                    <button className="login-view">Sign In</button>
                 </div>
                 {/*Instead of having #, add a route link here*/}
                 <div class="component-focus">
-                    <a href="#">Sign Up</a>
+                    <button className="login-view">Sign Up</button>
                 </div>
             </div>
-            <h1>Create a new account</h1>
 
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">
+            <h1 className="login-text">Create a new account</h1>
+
+            <form onSubmit={handleSubmit} className="registration-form">
+                <label htmlFor="username" className="login-label">
                     Username:
-                    <span className={validName ? "valid" : "hide"}>
+                    <span className={validName ? "login-valid" : "hide-login"}>
                         <FontAwesomeIcon icon={faCheck} />
                     </span>
-                    <span className={validName || !user ? "hide" : "invalid"}>
+                    <span className={validName || !user ? "hide-login" : "login-invalid"}>
                         <FontAwesomeIcon icon={faTimes} />
                     </span>
                 </label>
@@ -154,20 +155,21 @@ export default function Register() {
                     aria-describedby="usernote"
                     onFocus={() => setUserFocus(true)}
                     onBlur={() => setUserFocus(false)}
+                    className="login-input"
                 />
-                <p id="usernote" className={userFocus && user && !validName ? "instructions" : "offscreen"}>
+                <p id="usernote" className={userFocus && user && !validName ? "login-instructions" : "login-offscreen"}>
                     <FontAwesomeIcon icon={faInfoCircle} />
                     1 to 24 characters required. <br/>
                     Must begin with a letter. <br/>
                     Allowed: letters, numbers, underscores, hyphens. <br/>
                 </p>
 
-                <label htmlFor="password">
+                <label htmlFor="password" className="login-label">
                     Password:
-                    <span className={validPwd ? "valid" : "hide"}>
+                    <span className={validPwd ? "login-valid" : "hide-login"}>
                         <FontAwesomeIcon icon={faCheck} />
                     </span>
-                    <span className={validPwd || !pwd ? "hide" : "invalid"}>
+                    <span className={validPwd || !pwd ? "hide-login" : "login-invalid"}>
                         <FontAwesomeIcon icon={faTimes} />
                     </span>
                 </label>
@@ -180,8 +182,9 @@ export default function Register() {
                     aria-describedby="pwdnote"
                     onFocus={() => setPwdFocus(true)}
                     onBlur={() => setPwdFocus(false)}
+                    className="login-input"
                 />
-                <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                <p id="pwdnote" className={pwdFocus && !validPwd ? "login-instructions" : "login-offscreen"}>
                     <FontAwesomeIcon icon={faInfoCircle} />
                     8 to 24 characters required. <br/>
                     Must include: a lowercase and an uppercase letter, a number, and a special character. <br/>
@@ -189,12 +192,12 @@ export default function Register() {
                     <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percentage">%</span>
                 </p>
 
-                <label htmlFor="confirm-password">
+                <label htmlFor="confirm-password" className="login-label">
                     Confirm Password:
-                    <span className={validMatch && matchPwd ? "valid" : "hide"}>
+                    <span className={validMatch && matchPwd ? "login-valid" : "hide-login"}>
                         <FontAwesomeIcon icon={faCheck} />
                     </span>
-                    <span className={validMatch || !matchPwd ? "hide" : "invalid"}>
+                    <span className={validMatch || !matchPwd ? "hide-login" : "login-invalid"}>
                         <FontAwesomeIcon icon={faTimes} />
                     </span>
                 </label>
@@ -207,12 +210,13 @@ export default function Register() {
                     aria-describedby="confirmnote"
                     onFocus={() => setMatchFocus(true)}
                     onBlur={() => setMatchFocus(false)}
+                    className="login-input"
                 />
-                <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                <p id="confirmnote" className={matchFocus && !validMatch ? "login-instructions" : "login-offscreen"}>
                     <FontAwesomeIcon icon={faInfoCircle} />
                     Must match the first password input field.
                 </p>
-                <button disabled={!validName || !validPwd || !validMatch ? true : false}>
+                <button disabled={!validName || !validPwd || !validMatch ? true : false} className="login-button">
                     Sign Up
                 </button>
             </form>
