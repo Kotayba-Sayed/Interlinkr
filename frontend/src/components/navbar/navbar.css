@@ -1,4 +1,4 @@
-nav {
+.navbar-main {
     height: 60px;
     display: flex;
     background-color: #F1F1F1;
@@ -9,9 +9,30 @@ nav {
     border-bottom: rgb(119, 118, 118) 1px solid;
 }
   
-nav > .logo-container > #logo {
+nav > .navbar-logo-link > .logo-container > #logo {
     width: 49px;
     height: 47px;
+}
+
+.navbar-logo-link > .logo-container > h5 {
+    color: black;
+}
+
+
+.navbar-logo-link:hover {
+    text-decoration: none;
+}
+
+.navbar-logo-link:visited {
+    text-decoration: none;
+}
+
+.navbar-logo-link:active {
+    text-decoration: none;
+}
+
+.navbar-logo-link:link {
+    text-decoration: none;
 }
 
 .logo-container {
@@ -35,7 +56,8 @@ nav > .logo-container > #logo {
     margin-right: 5%;
 }
 
-.icon-container > #home-logo, #users-logo, #info-logo {
+
+.icon-container > .navbar-link >  #home-logo, #users-logo, #info-logo {
     height: 43px;
     width: 43px;
 }
@@ -43,18 +65,31 @@ nav > .logo-container > #logo {
 
 #home-logo:hover, #users-logo:hover, #info-logo:hover {
     transform: scale(1.1);
+
     /* add underline feature */
-    border-bottom: 3px solid black;
+    /* border-bottom: 3px solid black; */
 }
 
 .profile-container {
+    margin: 0;
+    padding: 0;
     display: flex;
+    align-self: center;
     order: 3;
     flex-basis: 5%;
+    /* height: 40%; */
 
 }
 
-.profile-container > #profile-logo {
+
+.profile-container > .dropdown > .btn > #profile-logo {
     height: 43px;
     width: 43px;
+}
+
+.dropdown-item {
+    margin-left: auto;
+    display: flex;
+    letter-spacing: 1px;
+    text-indent: 0.5rem;
 }
