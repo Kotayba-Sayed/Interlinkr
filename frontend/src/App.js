@@ -1,9 +1,9 @@
 import Navbar from "./components/navbar/Navbar"
 import CreatePost from "./components/home/CreatePost";
 import './App.css';
-import Post from "./components/home/Post";
 import { Route, Routes } from "react-router-dom"
-import Register from "./components/register/Register"
+import Login from "./components/register/Login"
+import Register from "./components/register/Register";
 
 
 function App() {
@@ -11,15 +11,16 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<h1>Login/Register</h1>} />
+        <Route path="/" element={<Login />} />
+        <Route path="register" element={<Register />} />
       </Routes>
 
       <Routes>
         <Route element={<Navbar />}>
           {/* <Route index element={<CreatePost />} /> */}
           <Route path="/home" element={<CreatePost />}/>
-          <Route path="/profiles" element={<Register />}/>
-          <Route path="/about" element={<Register />}/>
+          <Route path="/profiles" element={<h1>Profiles</h1>}/>
+          <Route path="/about" element={<h1>About</h1>}/>
         </Route>
 
         {/* Profile routes */}
