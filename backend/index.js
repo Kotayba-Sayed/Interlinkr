@@ -3,12 +3,14 @@ const app = express();
 const cors = require('cors');
 const postRoutes = require('./routes/postRoute');
 const commentsRoutes = require('./routes/commentsRoute');
+const usersRoutes = require('./routes/usersRoute');
 const db = require('./models');
 
 app.use(cors());
 app.use(express.json());
 app.use("/postRoute", postRoutes);
 app.use("/commentRoute", commentsRoutes);
+app.use("/usersRoute", usersRoutes);
 
 const PORT = process.env.PORT || 8000;
 
