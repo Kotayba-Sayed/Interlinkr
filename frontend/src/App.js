@@ -15,13 +15,14 @@ function App() {
         <Route path="register" element={<Register />} />
       </Routes>
 
+    {/* if authenticated */}
       <Routes>
         <Route element={<Navbar />}>
-          {/* <Route index element={<CreatePost />} /> */}
           <Route path="/home" element={<CreatePost />}/>
           <Route path="/profiles" element={<h1>Profiles</h1>}/>
           <Route path="/about" element={<h1>About</h1>}/>
         </Route>
+      </Routes>
 
         {/* Profile routes */}
         {/* <Route path="/profiles">
@@ -29,7 +30,6 @@ function App() {
           <Route path=":id" element={<Profile />} />
         </Route> */}
         {/* <Route path="*" element={<NotFound />} /> */}
-      </Routes>
     </>
   );
 }
