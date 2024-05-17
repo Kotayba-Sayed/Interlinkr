@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Post } = require('../models');
+const { Likes } = require('../models');
 const { authenticationHandler } = require('../middlewares/authenticationHandler');
 
 
@@ -12,6 +13,21 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+router.post("/", authenticationHandler, async (req, res) => {
+  try {
+    const post = req.body;
+    const UserId = req.user.id;
+    const username = req.user.username;
+    post.username = username;
+    post.UserId = UserId;
+    const newPost = await Post.create(post);
+    res.json(newPost);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 router.put("/:id", authenticationHandler, async (req, res) => {
   try {
@@ -45,5 +61,12 @@ router.delete("/:id", authenticationHandler, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+router.get("/:like", authenticationHandler, async (req, res) => {
+  const listOfPosts = await post.findAll({ include: [Likes] });
+  const likedPosts = await Likes.findAll({ where: { UserId: req.user.id } });
+  res.json({ listOfPosts: listOfPosts, likedPosts: likedPosts });
+});
+
 
 module.exports = router;
