@@ -45,23 +45,22 @@ function Navbar() {
               </a>
 
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <a className="dropdown-item" href="#">
+                {/* <a className="dropdown-item" href="/profile"> */}
+
+                <Link className="dropdown-item" to="/profile" >
                   <img src={menuProfile} alt="menu-profile" />
                   Profile
-                </a>
-                <a className="dropdown-item" href="#">
+                </Link>
+                <Link className="dropdown-item" to="/editProfile">
                   <img src={edit} alt="edit" />
                   Edit Profile
-                </a>
-                
-                <a className="dropdown-item" href="#">
+                </Link>
+                <Link className="dropdown-item" to="#">
                   <img src={logout} alt="logout" />
                   Logout
-                </a>
+                </Link>
               </div>
             </div>
-        
-            
           </div>
       </nav>
     
