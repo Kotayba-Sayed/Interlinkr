@@ -1,99 +1,71 @@
-import "./home.css"
-import upvoteFilled from "./images/arrow-up.svg"
-import upvoteNonFilled from "./images/upvote-nonfilled.svg"
-import downvoteNonFilled from "./images/arrow-down.svg"
-import downvoteFilled from "./images/downvote-filled.svg"
-import comments from "./images/comments.svg"
-import { useState } from "react"
-
+import React, { useState } from 'react';
+import axios from 'axios';
+import upvoteFilled from "./images/arrow-up.svg";
+import upvoteNonFilled from "./images/upvote-nonfilled.svg";
+import downvoteNonFilled from "./images/arrow-down.svg";
+import downvoteFilled from "./images/downvote-filled.svg";
+import comments from "./images/comments.svg";
 
 export default function Post(props) {
-    // console.log(props.item)
-    // console.log(props.item.username)
+    const [voted, setVoted] = useState(null);
+    const [count, setCount] = useState(props.item.count);
+    const [downvote, setDownvote] = useState(downvoteNonFilled);
+    const [upvote, setUpvote] = useState(upvoteNonFilled);
 
-    // props.item.count = 10
-    
-
-    const user = true
-
-    let [voted, setVoted] = useState(null)
-    let [count, setCount] = useState(props.item.count)
-    let [downvote, setDownvote] = useState(downvoteNonFilled)
-    let [upvote, setUpvote] = useState(upvoteNonFilled)
-
-    function openComments() {
-        // console.log("Hovering over comments")
+    async function handleVote(vote) {
+        try {
+            const response = await axios.post('https://interlinkr-api-4df8d4540ce2.herokuapp.com/LikeRoute', { PostId: props.item.id });
+            const { liked } = response.data;
+            if (vote === 'up' && liked) {
+                setCount(count + 1);
+                setVoted(true);
+                setUpvote(upvoteFilled);
+                setDownvote(downvoteNonFilled);
+            } else if (vote === 'down' && !liked) {
+                setCount(count - 1);
+                setVoted(false);
+                setUpvote(upvoteNonFilled);
+                setDownvote(downvoteFilled);
+            } else if (vote === 'up' && !liked) {
+                setCount(count + 1);
+                setVoted(true);
+                setUpvote(upvoteFilled);
+                setDownvote(downvoteNonFilled);
+            } else if (vote === 'down' && liked) {
+                setCount(count - 1);
+                setVoted(false);
+                setUpvote(upvoteNonFilled);
+                setDownvote(downvoteFilled);
+            }
+        } catch (error) {
+            console.error('Error handling vote', error);
+        }
     }
-
-    function handleUpvote() {
-        if (voted === null) {
-            setCount(count + 1)
-            setVoted(true)
-            setUpvote(upvoteFilled)
-            
-        }
-        else if (voted === true) {
-            setCount(count - 1)
-            setVoted(null)
-            setUpvote(upvoteNonFilled)
-        }
-
-        else if (voted === false) {
-            setCount(count + 2)
-            setVoted(true)
-            setUpvote(upvoteFilled)
-            setDownvote(downvoteNonFilled)
-        }
-    
-    }
-
-    function handleDownvote() {
-        if (voted === null) {
-            setCount(count - 1)
-            setVoted(false)
-            setDownvote(downvoteFilled)
-        }
-        else if (voted === false) {
-            setCount(count + 1)
-            setVoted(null)
-            setDownvote(downvoteNonFilled)
-        }
-        else if (voted === true) {
-            setCount(count - 2)
-            setVoted(false)
-            setUpvote(upvoteNonFilled)
-            setDownvote(downvoteFilled)
-        }
-
-    }
-
 
     return (
-    <section className="post">
-        <div className="user--info">
-            <h2>{props.item.username}</h2>
-            {/* WARNING! Only set to hours */}
-            <p>{props.item.createdAt} hours ago</p>
-        </div>
-        <div className="content">
-            <p>{props.item.content}</p>
-        </div>
-        <div className="reactions">
-            <div className="upvote-downvote">
-                <button id="upvote" onClick={handleUpvote}>
-                    <img src={upvote} alt="upvote-button" /> 
-                </button>
-                <h3>{count}</h3>
-                <button id="downvote" onClick={handleDownvote}>
-                    <img src={downvote} alt="downvote-button" />
+        <section className="post">
+            <div className="user--info">
+                <h2>{props.item.username}</h2>
+                <p>{props.item.timeAgo} hours ago</p>
+            </div>
+            <div className="content">
+                <p>{props.item.content}</p>
+            </div>
+            <div className="reactions">
+                <div className="upvote-downvote">
+                    <button id="upvote" onClick={() => handleVote('up')}>
+                        <img src={upvote} alt="upvote-button" />
+                    </button>
+                    <h3>{count}</h3>
+                    <button id="downvote" onClick={() => handleVote('down')}>
+                        <img src={downvote} alt="downvote-button" />
+                    </button>
+                </div>
+                <button className="comments-button">
+                    <img src={comments} alt="comments-button" />
+                    Comments
                 </button>
             </div>
-            <button className="comments-button" onClick={openComments}>
-                <img src={comments} alt="comments-button" />
-                {/* No comments functionality */}
-                Comments
-            </button>
-        </div>
-    </section>
-  )
+        </section>
+    );
 }
