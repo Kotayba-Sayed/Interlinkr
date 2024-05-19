@@ -24,11 +24,14 @@ function App() {
 
           <Route element={<RequireAuth />}>
             <Route element={<Navbar />}>
+              
               <Route path="/home" element={<CreatePost />}/>
-              <Route path="/profiles" element={<h1>Profiles</h1>}/>
-              <Route path="/about" element={<h1>About</h1>}/>
               <Route path="/profile" element={<Profile />}/>
               <Route path="/editProfile" element={<EditProfile />}/>
+
+              <Route path="/profiles" element={<h1>Profiles</h1>}/>
+              <Route path="/about" element={<h1>About</h1>}/>
+
             </Route>
           </Route>
           
