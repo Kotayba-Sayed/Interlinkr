@@ -45,7 +45,7 @@ function Navbar() {
               </a>
 
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="/profile">
                   <img src={menuProfile} alt="menu-profile" />
                   Profile
                 </a>

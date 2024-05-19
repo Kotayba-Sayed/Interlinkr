@@ -4,6 +4,8 @@ import './App.css';
 import { Route, Routes } from "react-router-dom"
 import Login from "./components/register/Login"
 import Register from "./components/register/Register";
+import Profile from "./components/user/Profile";
+import EditProfile from "./components/edit-profile/EditProfile";
 
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
           <Route path="/home" element={<CreatePost />}/>
           <Route path="/profiles" element={<h1>Profiles</h1>}/>
           <Route path="/about" element={<h1>About</h1>}/>
+          <Route path="/profile" element={<Profile />}/>
+          <Route path="/editProfile" element={<EditProfile />}/>
         </Route>
       </Routes>
 

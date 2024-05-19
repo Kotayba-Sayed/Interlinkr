@@ -80,13 +80,13 @@ export default function Login() {
                     </p>
                     <div className="registration-links">
                         <Link to="/">
-                            <div class="component-focus">
+                            <div className="component-focus">
                                 <button className="login-view">Sign In</button>
                             </div>
                         </Link>
                         {/*Instead of having #, add a route link here*/}
                         <Link to="/register">
-                            <div class="component-unfocus">
+                            <div className="component-unfocus">
                                 <button className="login-view">Sign Up</button>
                             </div>
                         </Link>
