@@ -1,6 +1,6 @@
 import "./register.css";
 import { useRef, useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../api/axios';
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{1,24}$/;
 // validating password (must be 8-24 characters, must contain at least one of each: upper, lower, number, special character)
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-const REGISTER_URL = '/register';
+const REGISTER_URL = 'usersRoute/';
 
 
 export default function Register() {
@@ -90,10 +90,10 @@ export default function Register() {
         try {
             // send user and pwd to backend with post
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ user, pwd }),
+                JSON.stringify({ username: user, password: pwd }),
                 {
                     headers: {'Content-Type': 'application/json'},
-                    withCredentials: true
+                    withCredentials: false
                 }
             );
             console.log(response.data);
@@ -129,13 +129,13 @@ export default function Register() {
             </p>
             <div className="registration-links">
                 <Link to="/">
-                    <div class="component-unfocus">
+                    <div className="component-unfocus">
                         <button className="login-view">Sign In</button>
                     </div>
                 </Link>
                 {/*Instead of having #, add a route link here*/}
                 <Link to="/register">
-                    <div class="component-focus">
+                    <div className="component-focus">
                         <button className="login-view">Sign Up</button>
                     </div>
                 </Link>
