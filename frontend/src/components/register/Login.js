@@ -1,22 +1,27 @@
 import "./register.css";
-import { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from "../context/AuthProvider";
-import axios from 'axios';
-import { Link } from "react-router-dom";
+import { useRef, useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+
+import axios from '../api/axios';
 
 // this needs to match the route in the backend
-const LOGIN_URL = '/login';
+const LOGIN_URL = 'usersRoute/login';
 
 
-export default function Login() {
-    const { setAuth } = useContext(AuthContext);
+const Login = () => {
+    const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/home'; 
+
     const userRef = useRef();
     const errRef = useRef();
 
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         userRef.current.focus();
@@ -30,23 +35,26 @@ export default function Login() {
         e.preventDefault();
 
         try {
+            console.log(pwd, user)
             const response = await axios.post(LOGIN_URL,
-                JSON.stringify({user, pwd}), // these should match the names in the backend
+                JSON.stringify({ username: user, password: pwd}), // these should match the names in the backend
                 {
                     headers: { 'Content-Type': 'application/json'},
-                    withCredentials: true
+                    withCredentials: false
                 }
             );
+            console.log(response);
             console.log(JSON.stringify(response?.data));
 
-            const accessToken = response?.data?.accessToken;
+            const token = response?.data?.token;
             const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
+            // console.log(roles)
+            setAuth({ username: user, password: pwd, roles, token});
 
             // emptying the input fields
             setUser('');
             setPwd('');
-            setSuccess(true);
+            navigate(from, { replace: true })
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No server response.');
@@ -62,63 +70,53 @@ export default function Login() {
     }
 
     return (
-        <>
         <div className="login--container">
+            <section className="registration-section">
+                <p ref={errRef} className={errMsg ? "login-errmsg" : "login-offscreen"} aria-live="assertive">
+                    {errMsg}
+                </p>
+                <div className="registration-links">
+                    <Link to="/">
+                        <div className="component-focus">
+                            <button className="login-view">Sign In</button>
+                        </div>
+                    </Link>
+                    {/*Instead of having #, add a route link here*/}
+                    <Link to="/register">
+                        <div className="component-unfocus">
+                            <button className="login-view">Sign Up</button>
+                        </div>
+                    </Link>
+                </div>
+                <h1 className="login-text">Log into your account</h1>
 
-            {success ? (
-                <section>
-                    <h1>You are logged in!</h1>
-                    <br />
-                    <p>
-                        <a href="#">Home Page</a>
-                    </p>
-                </section>
-            ) : (
-                <section className="registration-section">
-                    <p ref={errRef} className={errMsg ? "login-errmsg" : "login-offscreen"} aria-live="assertive">
-                        {errMsg}
-                    </p>
-                    <div className="registration-links">
-                        <Link to="/">
-                            <div className="component-focus">
-                                <button className="login-view">Sign In</button>
-                            </div>
-                        </Link>
-                        {/*Instead of having #, add a route link here*/}
-                        <Link to="/register">
-                            <div className="component-unfocus">
-                                <button className="login-view">Sign Up</button>
-                            </div>
-                        </Link>
-                    </div>
-                    <h1 className="login-text">Log into your account</h1>
-
-                    <form onSubmit={handleSubmit} className="registration-form">
-                        <label htmlFor="username" className="login-label">Username</label>
-                        <input 
-                            type="text"
-                            id="username"
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setUser(e.target.value)}
-                            value={user}
-                            required
-                            className="login-input"
-                            />
-                        <label htmlFor="password" className="login-label">Password</label>
-                        <input 
-                            type="password"
-                            id="password"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
-                            required
-                            className="login-input"
-                            />
-                        <button className="login-button">Login</button>
-                    </form>
-                </section>
-            )}
-            </div>
-        </>
+                <form onSubmit={handleSubmit} className="registration-form">
+                    <label htmlFor="username" className="login-label">Username</label>
+                    <input 
+                        type="text"
+                        id="username"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        required
+                        className="login-input"
+                        />
+                    <label htmlFor="password" className="login-label">Password</label>
+                    <input 
+                        type="password"
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required
+                        className="login-input"
+                        />
+                    <button className="login-button">Login</button>
+                </form>
+            </section>
+        </div>
     )
 }
+
+
+export default Login;
