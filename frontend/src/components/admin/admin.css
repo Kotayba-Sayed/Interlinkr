@@ -1,0 +1,62 @@
+.admin-container {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+    padding: 5px;
+}
+
+.admin-title-container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    align-items: baseline;
+    padding: 0 2px 2px 2px;
+}
+
+.admin-table-title {
+    margin: 2%;
+    font: 20px;
+    color: rgb(108, 107, 107);
+}
+
+.create-button {
+    height: 30px;
+    width: fit-content;
+    justify-self: end;
+}
+
+
+.create-button:hover {
+    background-color: rgb(84, 83, 83);
+    color: white;
+}
+
+.admin-table {
+    width: 800px;
+}
+
+.admin-header,
+.admin-row {
+    border: 1px solid white;
+}
+
+.admin-header>th {
+    padding: 8px;
+}
+
+.admin-row>td {
+    padding: 8px;
+}
+
+.admin-row:nth-child(even) {
+    background-color: darkgrey;
+}
+
+.moderate-button {
+    margin: 1px;
+}
+
+.moderate-button:hover {
+    background-color: rgb(84, 83, 83);
+    color: white;
+}

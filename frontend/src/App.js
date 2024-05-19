@@ -5,9 +5,12 @@ import Register from "./components/register/Register";
 import Profile from "./components/user/Profile";
 import EditProfile from "./components/edit-profile/EditProfile";
 import RequireAuth from "./components/RequireAuth";
+import AllProfiles from "./components/all-profiles/AllProfiles";
+import About from "./components/about/About";
+import Admin from "./components/admin/Admin";
 import Layout from "./Layout";
 import './App.css';
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom";
 
 
 
@@ -28,13 +31,11 @@ function App() {
               <Route path="/home" element={<CreatePost />}/>
               <Route path="/profile" element={<Profile />}/>
               <Route path="/editProfile" element={<EditProfile />}/>
-
-              <Route path="/profiles" element={<h1>Profiles</h1>}/>
-              <Route path="/about" element={<h1>About</h1>}/>
-
+              <Route path="/profiles" element={<AllProfiles />}/>
+              <Route path="/about" element={<About />}/>
             </Route>
           </Route>
-          
+          <Route path="/admin" element={<Admin />}/>
 
         </Route>
       </Routes>
