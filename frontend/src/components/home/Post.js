@@ -8,6 +8,11 @@ import { useState } from "react"
 
 
 export default function Post(props) {
+    // console.log(props.item)
+    // console.log(props.item.username)
+
+    // props.item.count = 10
+    
 
     const user = true
 
@@ -68,7 +73,7 @@ export default function Post(props) {
         <div className="user--info">
             <h2>{props.item.username}</h2>
             {/* WARNING! Only set to hours */}
-            <p>{props.item.timeAgo} hours ago</p>
+            <p>{props.item.createdAt} hours ago</p>
         </div>
         <div className="content">
             <p>{props.item.content}</p>
