@@ -1,5 +1,7 @@
 import "./profile.css";
 import Post from "../home/Post";
+import axios from "../api/axios";
+import { useEffect, useState } from "react";
 
 function Profile () {
 

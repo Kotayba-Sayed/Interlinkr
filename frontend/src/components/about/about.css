@@ -1,0 +1,50 @@
+.about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2%;
+}
+
+#about {
+    margin: 2%;
+    font: 20px;
+    color: rgb(108, 107, 107);
+}
+
+.developer-introduction {
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+}
+
+.developer {
+    background-color: rgb(237, 236, 236);
+    border-radius: 10px;
+    padding: 1%;
+    margin: 1%;
+    width: 20rem;
+    text-align: center;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.7);
+}
+
+.developer-name {
+    font-size: 20px;
+    padding: 2%;
+    letter-spacing: 1px;
+}
+
+.developer-task {
+    margin-top: 5%;
+    color: #81198C;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 950px) {
+    .about-container {
+        align-items: center;
+    }
+    .developer-introduction {
+        flex-direction: column;
+    }
+}
