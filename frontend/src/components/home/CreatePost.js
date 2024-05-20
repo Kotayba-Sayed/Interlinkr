@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./home.css";
 import penIcon from "./images/pen.svg";
 import imageIcon from "./images/image.svg";
@@ -7,6 +7,9 @@ import Post from "./Post";
 
 export default function CreatePost() {
   const [posts, setPosts] = useState([]);
+  const previousPostsRef = useRef([]);
+
+  // console.log(posts.length)
 
   useEffect(() => {
     fetchPosts();
@@ -19,7 +22,11 @@ export default function CreatePost() {
         throw new Error("Failed to fetch posts");
       }
       const data = await response.json();
-      setPosts(data);
+
+      if (previousPostsRef.current.length !== data.length) {
+        setPosts(data);
+        previousPostsRef.current = data;
+      }
     } catch (error) {
       console.error("Error fetching posts:", error);
     }

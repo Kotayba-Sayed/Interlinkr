@@ -1,20 +1,25 @@
 import "./register.css";
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import { useAuth } from '../context/AuthProvider';
 
-import axios from '../api/axios';
+import axios from '../api/axios';   
 
 // this needs to match the route in the backend
 const LOGIN_URL = 'usersRoute/login';
 
 
+
 const Login = () => {
-    const { setAuth } = useAuth();
+
+    // console.log(localStorage)
+    // const { setAuth } = useAuth();
+    const { setToken } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location?.state?.from?.pathname || '/home'; 
+    const from = location?.state?.from?.pathname || '/home';  // if there is no state, go to home
+    // console.log("location", location) 
 
     const userRef = useRef();
     const errRef = useRef();
@@ -49,12 +54,13 @@ const Login = () => {
             const token = response?.data?.token;
             const roles = response?.data?.roles;
             // console.log(roles)
-            setAuth({ username: user, password: pwd, roles, token});
+            setToken({ username: user, password: pwd, roles, token});
 
             // emptying the input fields
             setUser('');
             setPwd('');
             navigate(from, { replace: true })
+
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No server response.');

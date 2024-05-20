@@ -1,5 +1,5 @@
 import "./navbar.css"
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet, useNavigate } from "react-router-dom"
 
 import logoIcon from "./images/logo.svg"
 import homeIcon from "./images/home.svg"
@@ -9,13 +9,24 @@ import profileIcon from "./images/profile.svg"
 import logout from "./images/logout.svg"
 import edit from "./images/edit.svg"
 import menuProfile from "./images/menu-profile.svg"
+import { useAuth } from "../context/AuthProvider"
+
 
 function Navbar() {
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+
+
+  const handleLogout = () => {
+    setToken();
+    navigate("/", { replace: true });
+  };
+
   return (
     <>
     <header>
       <nav className="navbar-main">
-        <Link className="navbar-logo-link" to="/home">
+        <Link className="navbar-logo-link" to="/">
           <div className="logo-container">
               <img id='logo' src={logoIcon} alt='logo'></img>
               <h5 id='logo-text'>InterLinkr</h5>
@@ -23,7 +34,7 @@ function Navbar() {
         </Link>
 
           <div className="icon-container">
-              <Link className="navbar-link" to="/home">
+              <Link className="navbar-link" to="/">
                 <img id='home-logo' src={homeIcon} alt='home-view'></img>
               </Link>
 
@@ -55,7 +66,7 @@ function Navbar() {
                   <img src={edit} alt="edit" />
                   Edit Profile
                 </Link>
-                <Link className="dropdown-item" to="#">
+                <Link onClick={ handleLogout } className="dropdown-item" to="#">
                   <img src={logout} alt="logout" />
                   Logout
                 </Link>
