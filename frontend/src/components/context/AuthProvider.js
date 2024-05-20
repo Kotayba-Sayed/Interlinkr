@@ -1,51 +1,31 @@
-import { createContext, useEffect, useMemo, useState } from "react";
-import { useContext } from "react";
-import axios from "axios";
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const AuthContext = createContext({});
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    // const [auth, setAuth] = useState({});
-    const [token, setToken_] = useState(localStorage.getItem('token'));
+    const [token, setToken] = useState(() => {
+        const storedToken = localStorage.getItem('token');
+        console.log('Stored Token:', storedToken);
+        return storedToken;
+    });
 
-
-    const setToken = (newToken) => {
-        setToken_(newToken);
-    }
-
-    useEffect(() => {   
+    useEffect(() => {
         if (token) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             localStorage.setItem('token', token);
-
         } else {
-            delete axios.defaults.headers.common['Authorization'];
             localStorage.removeItem('token');
         }
     }, [token]);
 
-    const contextValue = useMemo(
-        () => ({
-            token,
-            setToken
-        }),
-        [token]
-    );
-    
-
-    // console.log("AuthProvider", auth);
-    console.log("token", token );
-    console.log("context", contextValue)
-    
     return (
-        <AuthContext.Provider value={ contextValue }>
+        <AuthContext.Provider value={{ token, setToken }}>
             {children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
 export const useAuth = () => {
     return useContext(AuthContext);
-}
+};
 
 export default AuthContext;
