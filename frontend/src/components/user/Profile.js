@@ -14,7 +14,7 @@ function Profile() {
     // const storedToken = localStorage.getItem('token');
     // console.log("Profile storedToken", storedToken);
 
-    console.log("Profile token", token)
+    console.log("Profile token", token.token)
 
 
     // let { profileId } = useParams();
@@ -34,7 +34,7 @@ function Profile() {
           const response = await axios.get(PROFILE_URL, {
             headers: {
               "Content-Type": "application/json; charset=UTF-8",
-              Authorization: token,
+              Authorization: token.token,
             },
           });
 

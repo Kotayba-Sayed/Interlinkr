@@ -2,13 +2,12 @@ import { createContext, useEffect, useState } from "react";
 import { useContext } from "react";
 import axios from "../api/axios";
 
-const AuthContext = createContext({});
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     // const [token, setToken_] = useState(localStorage.getItem('token'));
     const [token, setToken] = useState(() => {
         const storedToken = localStorage.getItem('token');
-        // debugger;
         console.log('AuthProvider Stored Token:', storedToken);
         return storedToken;
     });
@@ -35,7 +34,8 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (token) {
             // axios.defaults.headers.common['Authorization'] = token;
-            localStorage.setItem('token', token);
+            localStorage.setItem('token', token.token);
+            debugger;
         } else {
             // delete axios.defaults.headers.common['Authorization'];
             localStorage.removeItem('token');
