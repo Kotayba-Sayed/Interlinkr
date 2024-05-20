@@ -1,46 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import upvoteFilled from "./images/arrow-up.svg";
 import upvoteNonFilled from "./images/upvote-nonfilled.svg";
-import downvoteNonFilled from "./images/arrow-down.svg";
-import downvoteFilled from "./images/downvote-filled.svg";
 import comments from "./images/comments.svg";
+import { useAuth } from '../context/AuthProvider';
 
 export default function Post(props) {
-    const [voted, setVoted] = useState(null);
-    const [count, setCount] = useState(props.item.count);
-    const [downvote, setDownvote] = useState(downvoteNonFilled);
-    const [upvote, setUpvote] = useState(upvoteNonFilled);
+    const { token } = useAuth();
+    const [count, setCount] = useState(props.item.Likes ? props.item.Likes.length : 0);
+    const [liked, setLiked] = useState(props.item.LikedByUser);
+    const [loading, setLoading] = useState(false);
 
-    async function handleVote(vote) {
+    useEffect(() => {
+        async function fetchLikesCount() {
+            setLoading(true);
+            try {
+                const response = await axios.get(
+                    `https://interlinkr-api-4df8d4540ce2.herokuapp.com/postRoute/${props.item.id}/like`,
+                    {
+                        headers: { Authorization: token }
+                    }
+                );
+                setCount(response.data.likesCount);
+            } catch (error) {
+                console.error('Error fetching likes count', error);
+            }
+            setLoading(false);
+        }
+
+        fetchLikesCount();
+    }, [props.item.id, token]);
+
+    const handleVote = async () => {
         try {
-            const response = await axios.post('https://interlinkr-api-4df8d4540ce2.herokuapp.com/LikeRoute', { PostId: props.item.id });
-            const { liked } = response.data;
-            if (vote === 'up' && liked) {
-                setCount(count + 1);
-                setVoted(true);
-                setUpvote(upvoteFilled);
-                setDownvote(downvoteNonFilled);
-            } else if (vote === 'down' && !liked) {
-                setCount(count - 1);
-                setVoted(false);
-                setUpvote(upvoteNonFilled);
-                setDownvote(downvoteFilled);
-            } else if (vote === 'up' && !liked) {
-                setCount(count + 1);
-                setVoted(true);
-                setUpvote(upvoteFilled);
-                setDownvote(downvoteNonFilled);
-            } else if (vote === 'down' && liked) {
-                setCount(count - 1);
-                setVoted(false);
-                setUpvote(upvoteNonFilled);
-                setDownvote(downvoteFilled);
+            const response = await axios.post(
+                'https://interlinkr-api-4df8d4540ce2.herokuapp.com/LikeRoute',
+                { PostId: props.item.id },
+                {
+                    headers: { Authorization: token }
+                }
+            );
+
+            if (response.data.liked) {
+                setCount(prevCount => prevCount + 1);
+                setLiked(true);
+            } else {
+                setCount(prevCount => Math.max(0, prevCount - 1));
+                setLiked(false);
             }
         } catch (error) {
             console.error('Error handling vote', error);
         }
-    }
+    };
 
     return (
         <section className="post">
@@ -48,18 +59,18 @@ export default function Post(props) {
                 <h2>{props.item.username}</h2>
                 <p>{props.item.timeAgo} hours ago</p>
             </div>
-            <div className="content">
-                <p>{props.item.content}</p>
+            <div className="title">
+                <p>{props.item.title}</p>
+                <div className="content">
+                    <p>{props.item.content}</p>
+                </div>
             </div>
             <div className="reactions">
                 <div className="upvote-downvote">
-                    <button id="upvote" onClick={() => handleVote('up')}>
-                        <img src={upvote} alt="upvote-button" />
+                    <button id="upvote" onClick={handleVote} disabled={loading}>
+                        <img src={liked ? upvoteFilled : upvoteNonFilled} alt="upvote-button" />
                     </button>
                     <h3>{count}</h3>
-                    <button id="downvote" onClick={() => handleVote('down')}>
-                        <img src={downvote} alt="downvote-button" />
-                    </button>
                 </div>
                 <button className="comments-button">
                     <img src={comments} alt="comments-button" />
