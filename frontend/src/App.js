@@ -9,6 +9,7 @@ import AllProfiles from "./components/all-profiles/AllProfiles";
 import About from "./components/about/About";
 import Admin from "./components/admin/Admin";
 import Layout from "./Layout";
+import UserProfile from "./components/user/UserProfile";
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/editProfile" element={<EditProfile />}/>
 
             <Route path="/profiles" element={<AllProfiles />}/>
+            <Route path="profiles/:id" element={<UserProfile />}/>
             <Route path="/about" element={<About />}/>
 
           </Route>

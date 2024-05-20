@@ -9,7 +9,6 @@ import axios from '../api/axios';
 const LOGIN_URL = 'usersRoute/login';
 
 
-
 const Login = () => {
 
     // console.log(localStorage)
@@ -52,9 +51,13 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));
 
             const token = response?.data?.token;
-            const roles = response?.data?.roles;
+            const roles = response?.data?.rolSes;
+            const id = response?.data?.id;
+
+            
+
             // console.log(roles)
-            setToken({ username: user, password: pwd, roles, token});
+            setToken({ username: user, password: pwd, roles, token, id});
 
             // emptying the input fields
             setUser('');
@@ -74,6 +77,8 @@ const Login = () => {
             errRef.current.focus();
         }
     }
+
+
 
     return (
         <div className="login--container">
@@ -123,6 +128,7 @@ const Login = () => {
         </div>
     )
 }
+
 
 
 export default Login;
