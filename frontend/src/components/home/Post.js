@@ -48,8 +48,11 @@ export default function Post(props) {
                 <h2>{props.item.username}</h2>
                 <p>{props.item.timeAgo} hours ago</p>
             </div>
-            <div className="content">
-                <p>{props.item.content}</p>
+            <div className="title">
+                <p>{props.item.title}</p>
+                <div className="content">
+                    <p>{props.item.content}</p>
+                </div>
             </div>
             <div className="reactions">
                 <div className="upvote-downvote">
