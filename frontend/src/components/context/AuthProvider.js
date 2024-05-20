@@ -1,24 +1,43 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useContext } from "react";
 import axios from "../api/axios";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-    const [token, setToken_] = useState(localStorage.getItem('token'));
+    // const [token, setToken_] = useState(localStorage.getItem('token'));
+    const [token, setToken] = useState(() => {
+        const storedToken = localStorage.getItem('token');
+        // debugger;
+        console.log('AuthProvider Stored Token:', storedToken);
+        return storedToken;
+    });
 
 
-    const setToken = (newToken) => {
-        setToken_(newToken);
-    }
+    // console.log('AuthProvider Token:', JSON.parse(JSON.stringify(token)));
+    console.log('AuthProvider Token:', token);
 
-    useEffect(() => {   
+    // const setToken = (newToken) => {
+    //     setToken_(newToken);
+    // }
+
+    // useEffect(() => {   
+    //     if (token) {
+    //         axios.defaults.headers.common['Authorization'] = `${token.token}`;
+    //         localStorage.setItem('token', token.token);
+
+    //     } else {
+    //         delete axios.defaults.headers.common['Authorization'];
+    //         localStorage.removeItem('token');
+    //     }
+    // }, [token]);
+
+    useEffect(() => {
         if (token) {
-            // axios.defaults.headers.common['Authorization'] = `${token.token}`;
-            localStorage.setItem('token', token.token);
-
+            // axios.defaults.headers.common['Authorization'] = token;
+            localStorage.setItem('token', token);
         } else {
-            delete axios.defaults.headers.common['Authorization'];
+            // delete axios.defaults.headers.common['Authorization'];
             localStorage.removeItem('token');
         }
     }, [token]);

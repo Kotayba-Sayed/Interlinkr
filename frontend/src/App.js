@@ -19,7 +19,7 @@ import { Route, Routes } from "react-router-dom";
 
 
 function App() {
-  console.log("App");
+  // console.log("App");
 
   return (
     <>

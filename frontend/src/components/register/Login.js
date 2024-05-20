@@ -17,8 +17,8 @@ const Login = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location?.state?.from?.pathname || '/home';  // if there is no state, go to home
-    // console.log("location", location) 
+    const from = '/';  // if there is no state, go to home
+    // console.log(from)
 
     const userRef = useRef();
     const errRef = useRef();
@@ -47,8 +47,8 @@ const Login = () => {
                     withCredentials: false
                 }
             );
-            console.log(response);
-            console.log(JSON.stringify(response?.data));
+            // console.log(response);
+            // console.log(JSON.stringify(response?.data));
 
             const token = response?.data?.token;
             const roles = response?.data?.rolSes;
@@ -63,6 +63,7 @@ const Login = () => {
             setUser('');
             setPwd('');
             navigate(from, { replace: true })
+            // console.log(from)
 
         } catch (err) {
             if (!err?.response) {
