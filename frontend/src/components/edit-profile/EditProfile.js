@@ -17,6 +17,7 @@ export default function EditProfile () {
 
     const userRef = useRef();
     const errRef = useRef();
+    const confirmRef = useRef();
 
     // password field
     const [oldPwd, setOldPwd] = useState('');
@@ -33,8 +34,9 @@ export default function EditProfile () {
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
-    // error message
+    // messages, success
     const [errMsg, setErrMsg] = useState('');
+    const [confirmMsg, setConfirmMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
 
@@ -88,6 +90,7 @@ export default function EditProfile () {
             console.log(response.token);
             console.log(JSON.stringify(response));
 
+            setConfirmMsg("Registered Succesfully.");
             setSuccess(true);
 
         } catch (err) {
@@ -109,18 +112,15 @@ export default function EditProfile () {
                 <p ref={errRef} className={errMsg ? "login-errmsg" : "login-offscreen"} aria-live="assertive">
                     {errMsg}
                 </p>
+                <p ref={confirmRef} className={confirmMsg ? "login-confirm-msg" : "login-offscreen"} aria-live="assertive">
+                    {confirmMsg}
+                </p>
     
                 <h1 className="login-text">Change Password</h1>
     
                 <form onSubmit={handleSubmit} className="registration-form">
                     <label htmlFor="password" className="login-label">
                         Current Password:
-                        {/* <span className={validOldPwd ? "login-valid" : "hide-login"}>
-                            <FontAwesomeIcon icon={faCheck} />
-                        </span> */}
-                        {/* <span className={validOldPwd || !oldPwd ? "hide-login" : "login-invalid"}>
-                            <FontAwesomeIcon icon={faTimes} />
-                        </span> */}
                     </label>
                     <input 
                         type="password"
@@ -135,8 +135,6 @@ export default function EditProfile () {
                         onBlur={() => setOldPwdFocus(false)}
                         className="login-input"
                         />
-                    <p id="oldpasswordnote" className={oldPwdFocus && oldPwd && !validOldPwd ? "login-instructions" : "login-offscreen"}>
-                    </p>
     
                     <label htmlFor="password" className="login-label">
                         New Password:

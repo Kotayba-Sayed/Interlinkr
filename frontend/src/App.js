@@ -8,6 +8,7 @@ import RequireAuth from "./components/routes/RequireAuth";
 import AllProfiles from "./components/all-profiles/AllProfiles";
 import About from "./components/about/About";
 import Admin from "./components/admin/Admin";
+import Comments from "./components/home/Comments";
 import Layout from "./Layout";
 import UserProfile from "./components/user/UserProfile";
 import './App.css';
@@ -49,6 +50,8 @@ function App() {
             <Route path="/admin" element={<Admin />}/>
           </Route>
         
+          {/* <Route path="/comments" element={<Comments />}/> */}
+
 
         </Route>
         

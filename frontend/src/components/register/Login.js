@@ -5,18 +5,18 @@ import { useAuth } from '../context/AuthProvider';
 import axios from '../api/axios';
 import { useUsername } from "../context/UserContext";
 
+
 const LOGIN_URL = 'usersRoute/login';
 
 
 const Login = () => {
     const { setToken } = useAuth();
     const navigate = useNavigate();
-    const from = '/';  // if there is no state, go to home
+    const from = '/';  // go to home after loggin in suucessfully
     // console.log(from)
 
 
     const { setUsername } = useUsername();
-
     const userRef = useRef();
     const pwdRef = useRef();
     const errRef = useRef();
@@ -53,7 +53,10 @@ const Login = () => {
             console.log(user);
             setUsername( user );
 
-            navigate(from, { replace: true });
+            navigate(from, {
+                replace: true,
+                state: { message: 'Login successful!' }
+            });
 
         } catch (err) {
             if (!err?.response) {

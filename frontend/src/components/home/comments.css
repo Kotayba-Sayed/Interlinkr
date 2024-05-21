@@ -1,0 +1,75 @@
+/* Comment styles */
+
+.comments-container {
+    margin: 5px;
+}
+
+.one-comment-container {
+    background-color: rgb(200, 200, 200);
+    margin: 5px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.commenter-username {
+    margin: 0;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    color: rgb(44, 43, 43);
+}
+
+.comment-post-time {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 200;
+    color: rgb(59, 58, 58);
+}
+
+.comment-content-text {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    text-wrap: wrap;
+    letter-spacing: 0.2px;
+    color: rgb(44, 43, 43);
+}
+
+/* Create new comment styles */
+
+.new-comment-span {
+    display: flex;
+    background-color: rgb(200, 200, 200);
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.new-comment {
+    background-color: rgb(200, 200, 200);
+    margin: 10px;
+    text-align: left;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    border: none;
+    width: 52vh;
+}
+
+.new-comment:focus {
+    outline: none;
+}
+
+.new-comment-button {
+    border: none;
+    background-color: rgb(200, 200, 200);
+    margin-left: 30px;
+}
+
+.new-comment-button:focus {
+    outline: 0;
+}
+
+.new-comment-button-hide {
+    display: none;
+}
+
+.send-comment-image {
+    height: 24px;
+}

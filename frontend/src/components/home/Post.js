@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import upvoteFilled from "./images/arrow-up.svg";
 import upvoteNonFilled from "./images/upvote-nonfilled.svg";
 import comments from "./images/comments.svg";
 import { useAuth } from '../context/AuthProvider';
+import Comments from './Comments';
+import { Link } from 'react-router-dom';
 
 export default function Post(props) {
+
     const { token } = useAuth();
     const [count, setCount] = useState(props.item.Likes ? props.item.Likes.length : 0);
     const [liked, setLiked] = useState(props.item.LikedByUser);
     const [loading, setLoading] = useState(false);
+    const [commentsVisible, setCommentsVisible] = useState(false);
 
     useEffect(() => {
         async function fetchLikesCount() {
@@ -30,6 +34,21 @@ export default function Post(props) {
 
         fetchLikesCount();
     }, [props.item.id, token]);
+
+
+    const showComments = () => {
+        if(!commentsVisible) {
+            setCommentsVisible(true);
+        } else {
+            setCommentsVisible(false);
+        }
+        
+    };
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return new Date(dateString).toLocaleString(undefined, options);
+    };
 
     const handleVote = async () => {
         try {
@@ -55,15 +74,17 @@ export default function Post(props) {
 
     return (
         <section className="post">
-            <div className="user--info">
-                <h2>{props.item.username}</h2>
-                <p>{props.item.timeAgo} hours ago</p>
-            </div>
             <div className="title">
                 <p>{props.item.title}</p>
-                <div className="content">
-                    <p>{props.item.content}</p>
-                </div>
+            </div>
+            <div className="user--info">
+                <Link className="username-text" key={props.item.id} to={`profiles/${props.item.UserId}`}>
+                    {props.item.username}
+                </Link>
+                <p className='timeAgo'>Created {formatDate(props.item.createdAt)}</p>
+            </div>
+            <div className="content">
+                <p>{props.item.content}</p>
             </div>
             <div className="reactions">
                 <div className="upvote-downvote">
@@ -72,10 +93,13 @@ export default function Post(props) {
                     </button>
                     <h3>{count}</h3>
                 </div>
-                <button className="comments-button">
+                <button className="comments-button" onClick={showComments}>
                     <img src={comments} alt="comments-button" />
                     Comments
                 </button>
+            </div>
+            <div className='show-comments-container'>
+                { commentsVisible ? <Comments postId={props.item.id} username={props.item.username} /> : null }
             </div>
         </section>
     );
