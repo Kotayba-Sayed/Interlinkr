@@ -1,4 +1,3 @@
-
 const { verify } = require('jsonwebtoken');
 
 const authenticationHandler = (req, res, next) => {
@@ -6,7 +5,6 @@ const authenticationHandler = (req, res, next) => {
 
   if (!token) {
     return res.status(401).json({ error: 'No token provided' });
-
   }
 
   try {
@@ -15,8 +13,7 @@ const authenticationHandler = (req, res, next) => {
 
     if (!decoded) {
       return res.status(401).json({ error: 'Invalid token' });
-    }
-    else {
+    } else {
       req.user = decoded;
       next();
     }
@@ -25,4 +22,11 @@ const authenticationHandler = (req, res, next) => {
   }
 };
 
-module.exports = { authenticationHandler };
+const adminAccessHandler = (req, res, next) => {
+  if (req.user.username === 'admin') {
+    return next();
+  }
+  next();
+};
+
+module.exports = { authenticationHandler, adminAccessHandler };
