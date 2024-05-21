@@ -3,18 +3,18 @@ import axios from "../api/axios";
 import "./comments.css";
 import NewComment from './CreateComment';
 
-export default function Comments () {
+export default function Comments (postId) {
 
     const [comments, setComments] = useState([]);
 
-    // how to get the post id of the post that the comments are attached to?
-
+    // does this ever get called?
     useEffect(() => {
 
         const getComments = async () => {
             try {
-                const response = await axios.get('commentRoute/:postId');
+                const response = await axios.get(`commentRoute/${postId}`);
                 setComments(response.data);
+                console.log(comments)
             } catch (err) {
                 console.log(err);
             }
@@ -38,7 +38,7 @@ export default function Comments () {
     ]
 
     ////////// DELETE updatedAt UNLESS WE COUNT HOW LONG AGO COMMENT WAS POSTED  /////////////////
-    const allComments = testComments.map((comment, index) => {
+    const allComments = comments.map((comment, index) => {
         return (
             <div className='one-comment-container' key={index}>
                 <p className='commenter-username'>{comment.username}</p>

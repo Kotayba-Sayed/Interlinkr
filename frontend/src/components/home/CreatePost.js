@@ -3,6 +3,7 @@ import "./home.css";
 import penIcon from "./images/pen.svg";
 import Post from "./Post";
 import { useAuth } from '../context/AuthProvider';
+import { useLocation } from 'react-router-dom';
 
 export default function CreatePost() {
   const { token } = useAuth();
@@ -11,6 +12,20 @@ export default function CreatePost() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const previousPostsRef = useRef([]);
+
+  // login successful message
+  const location = useLocation();
+  const [message, setMessage] = useState(location.state?.message || '');
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   useEffect(() => {
     fetchPosts();
@@ -60,24 +75,29 @@ export default function CreatePost() {
     }
   };
 
+  const cancelNewPost = (e) => {
+    e.preventDefault();
+    setTitle("");
+    setContent("");
+  };
+
   return (
     <main className="homepage">
-      <section className="create-post">
+      {message && <div className="alert">{message}</div>}
+      <section className="create-post-container">
         <div className="box-1">
-          <form className="form-container form-1" onSubmit={handleSubmit}>
-            <label htmlFor="title"></label>
+          <form className="create-new-post-form" onSubmit={handleSubmit}>
             <input
-              className=""
+              className="new-post-title"
               type="text"
               id="Title"
               name="Title"
-              placeholder="Title?"
+              placeholder="Title Your Post"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <label htmlFor="content"></label>
-            <input
-              className=""
+            <textarea
+              className="new-post-content"
               type="text"
               id="content"
               name="content"
@@ -85,14 +105,16 @@ export default function CreatePost() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
+            <div className="create-post-buttons">
+              <button onClick={handleSubmit} className={title && content ? "upload-post-button" : "upload-post-button-hide"}>
+                <img src={penIcon} alt="pen-icon" id="upload-post" />
+                Upload Post
+              </button>
+              <button onClick={cancelNewPost} className={title && content ? "cancel-new-post" : "cancel-new-post-hide"}>
+                Cancel
+              </button>
+            </div>
           </form>
-        </div>
-
-        <div className="box-2">
-          <div className="upload-post" onClick={handleSubmit}>
-            <img id="upload-post" src={penIcon} alt="pen-icon"></img>
-            <p>Upload Post</p>
-          </div>
         </div>
       </section>
 

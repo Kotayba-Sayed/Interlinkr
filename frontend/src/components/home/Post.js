@@ -5,6 +5,7 @@ import upvoteNonFilled from "./images/upvote-nonfilled.svg";
 import comments from "./images/comments.svg";
 import { useAuth } from '../context/AuthProvider';
 import Comments from './Comments';
+import { Link } from 'react-router-dom';
 
 export default function Post(props) {
 
@@ -72,7 +73,10 @@ export default function Post(props) {
                 <p>{props.item.title}</p>
             </div>
             <div className="user--info">
-                <p className='username-text'>{props.item.username}</p>
+                {/* <p className='username-text'>{props.item.username}</p> */}
+                <Link className="username-text" key={props.item.id} to={`profiles/${props.item.id}`}>
+                    {props.item.username}
+                </Link>
                 <p className='timeAgo'>{props.item.timeAgo} hours ago</p>
             </div>
             <div className="content">
@@ -91,7 +95,7 @@ export default function Post(props) {
                 </button>
             </div>
             <div className='show-comments-container'>
-                { commentsVisible ? <Comments /> : null }
+                { commentsVisible ? <Comments item={props.item.id} /> : null }
             </div>
         </section>
     );

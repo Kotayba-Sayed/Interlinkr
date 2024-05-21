@@ -45,10 +45,12 @@
 
 .new-comment {
     background-color: rgb(200, 200, 200);
-    padding-left: 10px;
+    margin: 10px;
     text-align: left;
     font-size: 14px;
     letter-spacing: 0.2px;
+    border: none;
+    width: 52vh;
 }
 
 .new-comment:focus {

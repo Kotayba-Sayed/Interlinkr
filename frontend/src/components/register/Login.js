@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../context/AuthProvider';
 import axios from '../api/axios';
+import { useLocation } from 'react-router-dom';
 
 const LOGIN_URL = 'usersRoute/login';
 
@@ -12,6 +13,7 @@ const Login = () => {
     const navigate = useNavigate();
     const from = '/';  // go to home after loggin in suucessfully
     // console.log(from)
+
 
     const userRef = useRef();
     const pwdRef = useRef();
@@ -46,7 +48,10 @@ const Login = () => {
 
             setUser('');
             setPwd('');
-            navigate(from, { replace: true });
+            navigate(from, {
+                replace: true,
+                state: { message: 'Login successful!' }
+            });
 
         } catch (err) {
             if (!err?.response) {

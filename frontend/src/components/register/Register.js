@@ -18,6 +18,7 @@ export default function Register() {
 
     const userRef = useRef();
     const errRef = useRef();
+    const confirmRef = useRef();
 
     // user field
     const [user, setUser] = useState('');
@@ -34,8 +35,9 @@ export default function Register() {
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
-    // error message
+    // messages, success
     const [errMsg, setErrMsg] = useState('');
+    const [confirmMsg, setConfirmMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
 
@@ -100,6 +102,7 @@ export default function Register() {
             console.log(response.accessToken);
             console.log(JSON.stringify(response));
 
+            setConfirmMsg("Registered Succesfully.");
             setSuccess(true);
 
             // clear input fields here (do we need to?)
@@ -126,6 +129,9 @@ export default function Register() {
         <section className="registration-section">
             <p ref={errRef} className={errMsg ? "login-errmsg" : "login-offscreen"} aria-live="assertive">
                 {errMsg}
+            </p>
+            <p ref={confirmRef} className={confirmMsg ? "login-confirm-msg" : "login-offscreen"} aria-live="assertive">
+                {confirmMsg}
             </p>
             <div className="registration-links">
                 <Link to="/">

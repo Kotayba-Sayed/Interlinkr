@@ -1,5 +1,3 @@
-
-
 .login--container {
     display: flex;
     justify-content: center;
@@ -82,6 +80,23 @@
 .login-input {
     background-color: #d9d9d9;
     width: 100%;
+    border: none;
+    height: 2.5em;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #d9d9d9 inset; /* Change white to your desired color */
+    box-shadow: 0 0 0px 1000px #d9d9d9 inset;
+    -webkit-text-fill-color: #000;
+}
+
+.login-input:focus {
+    outline: none;
 }
 
 .login-label,
@@ -141,6 +156,13 @@
     background-color: lightpink;
     color: firebrick;
     font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.login-confirm-msg {
+    background-color: lightgreen;
+    color: rgb(32, 92, 32);
     padding: 0.5rem;
     margin-bottom: 0.5rem;
 }
