@@ -7,16 +7,10 @@ import { useAuth } from '../context/AuthProvider';
 const NEW_COMMENT_URL = "commentRoute/:postId";
 
 
-export default function NewComment () {
+export default function NewComment ({postId, username}) {
 
     const [newComment, setNewComment] = useState("");
     const { token } = useAuth();
-
-    /// GET ID OF THE POST THIS NEW COMMENT IS FOR
-    const postId = 1;
-
-    //// GET THE USERNAME OF THE LOGGED IN USER WHO IS COMMENTING
-    const username = "me";
 
 
     const createNewComment = async (e) => {
@@ -34,11 +28,9 @@ export default function NewComment () {
                 }
             );
 
-            //////////// Is this necessary? //////////////////
-            const token = response?.data?.token;
+            // const Newtoken = response?.data?.token;
 
             setNewComment("");
-
 
         } catch (err) {
             console.error(err);

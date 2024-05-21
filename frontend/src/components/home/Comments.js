@@ -3,18 +3,16 @@ import axios from "../api/axios";
 import "./comments.css";
 import NewComment from './CreateComment';
 
-export default function Comments (postId) {
+export default function Comments ({postId, username}) {
 
     const [comments, setComments] = useState([]);
 
-    // does this ever get called?
     useEffect(() => {
 
         const getComments = async () => {
             try {
                 const response = await axios.get(`commentRoute/${postId}`);
                 setComments(response.data);
-                console.log(comments)
             } catch (err) {
                 console.log(err);
             }
@@ -53,7 +51,7 @@ export default function Comments (postId) {
         <>
         <div className="comments-container">
             {allComments}
-            <NewComment />
+            <NewComment postId={postId} username={username} />
         </div>
         </>
     );

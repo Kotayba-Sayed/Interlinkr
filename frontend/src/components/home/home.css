@@ -108,6 +108,7 @@
     align-self: center;
     /* width: 600px; */
     width: 70vh;
+    margin-bottom: 50px;
 }
 
 .post {
@@ -141,6 +142,7 @@
 
 .username-text:hover {
     text-decoration: none;
+    color: #a30ab5;
 }
 
 .title {

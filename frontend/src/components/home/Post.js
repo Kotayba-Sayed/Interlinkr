@@ -43,7 +43,12 @@ export default function Post(props) {
             setCommentsVisible(false);
         }
         
-    }
+    };
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return new Date(dateString).toLocaleString(undefined, options);
+    };
 
     const handleVote = async () => {
         try {
@@ -73,11 +78,10 @@ export default function Post(props) {
                 <p>{props.item.title}</p>
             </div>
             <div className="user--info">
-                {/* <p className='username-text'>{props.item.username}</p> */}
-                <Link className="username-text" key={props.item.id} to={`profiles/${props.item.id}`}>
+                <Link className="username-text" key={props.item.id} to={`profiles/${props.item.UserId}`}>
                     {props.item.username}
                 </Link>
-                <p className='timeAgo'>{props.item.timeAgo} hours ago</p>
+                <p className='timeAgo'>Created: {formatDate(props.item.createdAt)}</p>
             </div>
             <div className="content">
                 <p>{props.item.content}</p>
@@ -95,7 +99,7 @@ export default function Post(props) {
                 </button>
             </div>
             <div className='show-comments-container'>
-                { commentsVisible ? <Comments item={props.item.id} /> : null }
+                { commentsVisible ? <Comments postId={props.item.id} username={props.item.username} /> : null }
             </div>
         </section>
     );
