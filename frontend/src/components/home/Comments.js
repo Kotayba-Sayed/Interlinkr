@@ -22,25 +22,16 @@ export default function Comments ({postId, username}) {
 
     }, []);
 
-    const testComments = [
-        {
-            username: "commenter_1",
-            updatedAt: "2 hours ago",
-            theComment: "Yellow, green, blue, red"
-        },
-        {
-            username: "me123",
-            updatedAt: "1 day ago",
-            theComment: "Yellow, green, blue, red, Yellow, green, blue, red, Yellow, green, blue, red, Yellow, green, blue, red, Yellow, green, blue, red, Yellow, green, blue, red"
-        },
-    ]
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return new Date(dateString).toLocaleString(undefined, options);
+    };
 
-    ////////// DELETE updatedAt UNLESS WE COUNT HOW LONG AGO COMMENT WAS POSTED  /////////////////
     const allComments = comments.map((comment, index) => {
         return (
             <div className='one-comment-container' key={index}>
                 <p className='commenter-username'>{comment.username}</p>
-                <p className='comment-post-time'>{comment.updatedAt}</p>
+                <p className='comment-post-time'>Commented {formatDate(comment.createdAt)}</p>
                 <p className='comment-content-text'>{comment.theComment}</p>
             </div>
         )

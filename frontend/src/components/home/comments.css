@@ -14,8 +14,7 @@
 .commenter-username {
     margin: 0;
     font-size: 15px;
-    font-weight: 400;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     color: rgb(44, 43, 43);
 }
 
@@ -27,7 +26,7 @@
 }
 
 .comment-content-text {
-    margin: 15px 0 0 0;
+    margin: 5px 0 0 0;
     font-size: 14px;
     text-wrap: wrap;
     letter-spacing: 0.2px;

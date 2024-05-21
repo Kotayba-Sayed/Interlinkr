@@ -81,7 +81,7 @@ export default function Post(props) {
                 <Link className="username-text" key={props.item.id} to={`profiles/${props.item.UserId}`}>
                     {props.item.username}
                 </Link>
-                <p className='timeAgo'>Created: {formatDate(props.item.createdAt)}</p>
+                <p className='timeAgo'>Created {formatDate(props.item.createdAt)}</p>
             </div>
             <div className="content">
                 <p>{props.item.content}</p>
