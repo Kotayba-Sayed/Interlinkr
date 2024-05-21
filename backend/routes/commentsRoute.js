@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { comments } = require('../models');
-const { authenticationHandler } = require('../middlewares/authenticationHandler');
+const { authenticationHandler, adminAccessHandler } = require('../middlewares/authenticationHandler');
 
 router.get("/:postId", async (req, res) => {
   const postId = req.params.postId;
@@ -21,13 +21,13 @@ router.post("/:postId", authenticationHandler, async (req, res) => {
 });
 
 
-router.put("/:id", authenticationHandler, async (req, res) => {
+router.put("/:id", authenticationHandler, adminAccessHandler, async (req, res) => {
   try {
     const commentId = req.params.id;
     const updatedComment = req.body;
     const comment = await Comment.findOne({ where: { id: commentId } });
 
-    if (comment.UserId !== req.user.id) {
+    if (comment.UserId !== req.user.id && req.user.username !== 'admin') {
       return res.status(403).json({ error: 'You are not authorized to edit this comment' });
     }
 
@@ -38,12 +38,12 @@ router.put("/:id", authenticationHandler, async (req, res) => {
   }
 });
 
-router.delete("/:id", authenticationHandler, async (req, res) => {
+router.delete("/:id", authenticationHandler, adminAccessHandler, async (req, res) => {
   try {
     const commentId = req.params.id;
     const comment = await Comment.findOne({ where: { id: commentId } });
 
-    if (comment.UserId !== req.user.id) {
+    if (comment.UserId !== req.user.id && req.user.username !== 'admin') {
       return res.status(403).json({ error: 'You are not authorized to delete this comment' });
     }
 
