@@ -1,6 +1,6 @@
 import "./register.css";
 import { useRef, useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../context/AuthProvider';
 
 import axios from '../api/axios';   
@@ -16,7 +16,6 @@ const Login = () => {
     const { setToken } = useAuth();
 
     const navigate = useNavigate();
-    const location = useLocation();
     const from = '/';  // if there is no state, go to home
     // console.log(from)
 
@@ -51,19 +50,15 @@ const Login = () => {
             // console.log(JSON.stringify(response?.data));
 
             const token = response?.data?.token;
-            const roles = response?.data?.rolSes;
-            const id = response?.data?.id;
+            // const roles = response?.data?.rolSes;
+            // const id = response?.data?.id;
 
-            
-
-            // console.log(roles)
-            setToken({ username: user, password: pwd, roles, token, id});
+            setToken(token);
 
             // emptying the input fields
             setUser('');
             setPwd('');
             navigate(from, { replace: true })
-            // console.log(from)
 
         } catch (err) {
             if (!err?.response) {

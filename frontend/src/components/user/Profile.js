@@ -10,40 +10,33 @@ import { useAuth } from "../context/AuthProvider";
 function Profile() {
 
     const { token } = useAuth();
-    
-    // const storedToken = localStorage.getItem('token');
-    // console.log("Profile storedToken", storedToken);
-
-    console.log("Profile token", token.token)
-
-
-    // let { profileId } = useParams();
+    // console.log("Profile token", token)
 
     const [posts, setPosts] = useState([]);
+    const [username, setUsername] = useState("");
+    const [id, setId] = useState("");
+
 
     const PROFILE_URL = "usersRoute/profile";
     const POSTS_URL = "postRoute";
     
-    let username;
-    let id;
-
-    // console.log(localStorage.getItem('token'));
+    // let username;
+    // let id;
 
     const fetchUser = async () => {
         try {
           const response = await axios.get(PROFILE_URL, {
             headers: {
               "Content-Type": "application/json; charset=UTF-8",
-              Authorization: token.token,
+              Authorization: token,
             },
           });
 
-          username = response.data.username;
-          id = response.data.id;
-          console.log("response", response.data)
-          console.log("username", username);
-          console.log("id", id);
-
+          // username = response.data.username;
+          setUsername(response.data.username);
+          // id = response.data.id;
+          setId(response.data.id);
+          console.log(id)
           } catch (error) {
             console.error("Error fetching posts", error);
           }
@@ -52,9 +45,9 @@ function Profile() {
     const fetchPosts = async () => {
         try {
             const response = await axios.get(POSTS_URL);
-            const dataPosts = response.data.filter(post => post.UserId === id)
+            const dataPosts = response.data.filter(post => post.UserId === parseInt(id))
             setPosts(dataPosts);
-            console.log(dataPosts)
+            // console.log(dataPosts)
           } catch (error) {
             console.error("Error fetching posts", error);
           }
@@ -64,13 +57,16 @@ function Profile() {
     useEffect(() => {
         fetchPosts();
         fetchUser();
-    }, []);
+    }, [id, username]);
 
     return (
         <>
         <div className="user-profile-container">
             <div id="profile-style-container">
-                <p id="profile-username">{token.username}</p>
+                <p id="profile-username">
+                    {username}
+                </p>
+
 
                 <h2 id="profile-posts-title">Post History</h2>
 

@@ -1,16 +1,19 @@
-import axios from 'axios';
+import axios from '../api/axios';
 import '../register/register.css';
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useRef, useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthProvider';
 
 // validating password (must be 8-24 characters, must contain at least one of each: upper, lower, number, special character)
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-const EDIT_URL = '/editProfile';
+const EDIT_URL = 'usersRoute/changepassword';
 
 export default function EditProfile () {
+
+    const { token } = useAuth();
 
     const userRef = useRef();
     const errRef = useRef();
@@ -33,6 +36,7 @@ export default function EditProfile () {
     // error message
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+
 
 
     useEffect (() => {
@@ -58,6 +62,7 @@ export default function EditProfile () {
         setErrMsg('');
     }, [oldPwd, newPwd, matchPwd])
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -69,11 +74,14 @@ export default function EditProfile () {
         }
 
         try {
-            const response = await axios.post(EDIT_URL,
-                JSON.stringify({ oldPwd, newPwd }),
+            const response = await axios.put(EDIT_URL,
+                JSON.stringify({ oldPassword: oldPwd, newPassword: newPwd }),
                 {
-                    headers: {'Content-Type': 'application/json'},
-                    withCredentials: false
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: token,
+                    },
+                    // withCredentials: false
                 }
             );
             console.log(response.data);
@@ -90,9 +98,7 @@ export default function EditProfile () {
             }
             errRef.current.focus();
         }
-
     }
-
 
     return (
         <>
@@ -108,13 +114,13 @@ export default function EditProfile () {
     
                 <form onSubmit={handleSubmit} className="registration-form">
                     <label htmlFor="password" className="login-label">
-                        Password:
-                        <span className={validOldPwd ? "login-valid" : "hide-login"}>
+                        Current Password:
+                        {/* <span className={validOldPwd ? "login-valid" : "hide-login"}>
                             <FontAwesomeIcon icon={faCheck} />
-                        </span>
-                        <span className={validOldPwd || !oldPwd ? "hide-login" : "login-invalid"}>
+                        </span> */}
+                        {/* <span className={validOldPwd || !oldPwd ? "hide-login" : "login-invalid"}>
                             <FontAwesomeIcon icon={faTimes} />
-                        </span>
+                        </span> */}
                     </label>
                     <input 
                         type="password"
@@ -184,8 +190,8 @@ export default function EditProfile () {
                         <FontAwesomeIcon icon={faInfoCircle} />
                         Must match the first password input field.
                     </p>
-                    <button disabled={!validOldPwd || !validMatch ? true : false} className="login-button">
-                        Sign Up
+                    <button disabled={!validMatch ? true : false} className="login-button">
+                        Confirm
                     </button>
                 </form>
             </section>

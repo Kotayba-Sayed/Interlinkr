@@ -1,9 +1,52 @@
 import "./admin.css";
+import { useState, useEffect } from 'react';
+import axios from '../api/axios';
+
 
 
 function Admin () {
 
-    // need all data from all tables
+
+    const [users, setUsers] = useState([]);
+    const [posts, setPosts] = useState([]);
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        const getUsers = async () => {
+            try {
+                const response = await axios.get('usersRoute/all');
+                setUsers(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        const getPosts = async () => {
+            try {
+                const response = await axios.get('postRoute');
+                setPosts(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        const getComments = async () => {
+            try {
+                const response = await axios.get('commentsRoute');
+                setComments(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        getUsers();
+        getPosts();
+        getComments();
+    }, [])
+
+
+
+        // const { users, posts, comments } = useAdminData();
 
     const usersData = [
         {
@@ -50,16 +93,6 @@ function Admin () {
         }
     ];
 
-    const likesData = [
-        {
-            id: 1,
-            createdAt: "2024-02-02",
-            updatedAt: "2024-03-03",
-            userId: 3,
-            postId: 2
-        }
-      ];
-
     const commentData = [
         {
             id: 1,
@@ -71,7 +104,7 @@ function Admin () {
         }
       ];
 
-    const users = usersData.map((user, index) => {
+    const allUsers = users.map((user, index) => {
         return (
             <tr className="admin-row" key={index}>
                 <td>{user.id}</td>
@@ -87,7 +120,7 @@ function Admin () {
         )
       });
 
-      const posts = postData.map((post, index) => {
+      const allPosts = posts.map((post, index) => {
         return (
             <tr className="admin-row" key={index}>
                 <td>{post.id}</td>
@@ -105,24 +138,7 @@ function Admin () {
         )
       });
 
-      const likes = likesData.map((like, index) => {
-        return (
-            <tr className="admin-row" key={index}>
-                <td>{like.id}</td>
-                <td>{like.createdAt}</td>
-                <td>{like.updatedAt}</td>
-                <td>{like.userId}</td>
-                <td>{like.postId}</td>
-                <td className="moderate">
-                    <button className="moderate-button">delete</button>
-                    <button className="moderate-button">update</button>
-                </td>
-            </tr>
-            
-        )
-      });
-
-      const comments = commentData.map((comment, index) => {
+      const allComments = comments.map((comment, index) => {
         return (
             <tr className="admin-row" key={index}>
                 <td>{comment.id}</td>
@@ -158,7 +174,7 @@ function Admin () {
                         <th>UpdatedAt</th>
                         <th>moderate</th>
                     </tr>
-                    {users}
+                    {allUsers}
                 </table>
             </div>
 
@@ -178,7 +194,7 @@ function Admin () {
                         <th>userId</th>
                         <th>moderate</th>
                     </tr>
-                    {posts}
+                    {allPosts}
                 </table>
             </div>
 
@@ -197,25 +213,7 @@ function Admin () {
                         <th>postId</th>
                         <th>moderate</th>
                     </tr>
-                    {comments}
-                </table>
-            </div>
-
-            <div id="admin-likes-table">
-            <div className="admin-title-container">
-                    <h2 className="admin-table-title">Likes</h2>
-                    <button className="create-button">Create Like</button>
-                </div>
-                <table className="admin-table" id="likes-table">
-                    <tr className="admin-header">
-                        <th>id</th>
-                        <th>createdAt</th>
-                        <th>updatedAt</th>
-                        <th>userId</th>
-                        <th>postId</th>
-                        <th>moderate</th>
-                    </tr>
-                    {likes}
+                    {allComments}
                 </table>
             </div>
         </div>
