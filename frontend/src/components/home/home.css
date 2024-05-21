@@ -103,25 +103,39 @@ input {
 .user--info {
     padding: 0;
     margin-left: 1.5em;
-    margin-top: 0.6em;
     letter-spacing: 0.6px;
 }
 
-.user--info > h2 {
-    font-size: 1.4rem;
-}
 
-.user--info > p {
+.timeAgo {
     color: rgb(96, 96, 96);
     font-size: 12px;
-    margin-bottom: 10px;
+}
+
+.username-text {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.title {
+    margin: 1rem 0 0 1.5rem;
+    padding: 0;
+    width: 95%;
+    font-size: 19px;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+}
+
+.title > p {
+    margin: 0;
 }
 
 .content {
-    margin-left: 1em;
+    margin: 0 0 0 1.5rem;
     width: 95%;
     font-size: 15px;
     letter-spacing: 0.5px;
+    text-wrap: wrap;
 }
 
 .reactions {
@@ -153,6 +167,10 @@ input {
     
 }
 
+.comments-button:focus {
+    outline: none;
+}
+
 .comments > p {
     margin: 0;
     margin-left: 0.5em;
@@ -169,7 +187,3 @@ input {
 h2 {
     margin: 0;
 }
-
-
-
-

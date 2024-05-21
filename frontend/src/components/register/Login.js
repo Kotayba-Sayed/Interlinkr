@@ -10,7 +10,7 @@ const LOGIN_URL = 'usersRoute/login';
 const Login = () => {
     const { setToken } = useAuth();
     const navigate = useNavigate();
-    const from = '/';  // if there is no state, go to home
+    const from = '/';  // go to home after loggin in suucessfully
     // console.log(from)
 
     const userRef = useRef();
