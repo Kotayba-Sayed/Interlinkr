@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../context/AuthProvider';
 import axios from '../api/axios';
+import { useUsername } from "../context/UserContext";
 
 const LOGIN_URL = 'usersRoute/login';
 
@@ -12,6 +13,9 @@ const Login = () => {
     const navigate = useNavigate();
     const from = '/';  // if there is no state, go to home
     // console.log(from)
+
+
+    const { setUsername } = useUsername();
 
     const userRef = useRef();
     const pwdRef = useRef();
@@ -46,6 +50,9 @@ const Login = () => {
 
             setUser('');
             setPwd('');
+            console.log(user);
+            setUsername( user );
+
             navigate(from, { replace: true });
 
         } catch (err) {
