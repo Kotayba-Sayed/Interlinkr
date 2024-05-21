@@ -1,5 +1,4 @@
-import { createContext, useEffect, useState } from "react";
-import { useContext } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import axios from "../api/axios";
 
 const AuthContext = createContext();
@@ -12,24 +11,7 @@ export const AuthProvider = ({ children }) => {
         return storedToken;
     });
 
-
-    // console.log('AuthProvider Token:', JSON.parse(JSON.stringify(token)));
     console.log('AuthProvider Token:', token);
-
-    // const setToken = (newToken) => {
-    //     setToken_(newToken);
-    // }
-
-    // useEffect(() => {   
-    //     if (token) {
-    //         axios.defaults.headers.common['Authorization'] = `${token.token}`;
-    //         localStorage.setItem('token', token.token);
-
-    //     } else {
-    //         delete axios.defaults.headers.common['Authorization'];
-    //         localStorage.removeItem('token');
-    //     }
-    // }, [token]);
 
     useEffect(() => {
         if (token) {
@@ -41,17 +23,15 @@ export const AuthProvider = ({ children }) => {
         }
     }, [token]);
 
-
-    
     return (
         <AuthContext.Provider value={{ token, setToken }}>
             {children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
 export const useAuth = () => {
     return useContext(AuthContext);
-}
+};
 
 export default AuthContext;
