@@ -35,6 +35,12 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!title || !content) {
+      alert("Both title and content are required to create a post.");
+      return;
+    }
+
     console.log('Token before request:', token);
     try {
       const response = await fetch("https://interlinkr-api-4df8d4540ce2.herokuapp.com/postRoute", {
@@ -71,7 +77,7 @@ export default function CreatePost() {
               type="text"
               id="Title"
               name="Title"
-              placeholder="Title?"
+              placeholder="Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />

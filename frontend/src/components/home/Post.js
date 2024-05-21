@@ -53,11 +53,16 @@ export default function Post(props) {
         }
     };
 
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return new Date(dateString).toLocaleString(undefined, options);
+    };
+
     return (
         <section className="post">
             <div className="user--info">
                 <h2>{props.item.username}</h2>
-                <p>{props.item.timeAgo} hours ago</p>
+                <p>Created at {formatDate(props.item.createdAt)}</p>
             </div>
             <div className="title">
                 <p>{props.item.title}</p>
