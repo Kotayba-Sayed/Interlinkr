@@ -74,15 +74,20 @@ export default function Post(props) {
 
     return (
         <section className="post">
-            <div className="title">
-                <p>{props.item.title}</p>
+            <div className="title--user">
+
+                <div className="title">
+                    <p>{props.item.title}</p>
+                </div>
+                <div className="user--info">
+                    <Link className="username-text" key={props.item.id} to={`profiles/${props.item.UserId}`}>
+                        {props.item.username}
+                    </Link>
+                </div>
+            
             </div>
-            <div className="user--info">
-                <Link className="username-text" key={props.item.id} to={`profiles/${props.item.UserId}`}>
-                    {props.item.username}
-                </Link>
                 <p className='timeAgo'>Created {formatDate(props.item.createdAt)}</p>
-            </div>
+
             <div className="content">
                 <p>{props.item.content}</p>
             </div>
@@ -94,8 +99,8 @@ export default function Post(props) {
                     <h3>{count}</h3>
                 </div>
                 <button className="comments-button" onClick={showComments}>
-                    <img src={comments} alt="comments-button" />
-                    Comments
+                    <img className='comments--image' src={comments} alt="comments-button" />
+                    Reply
                 </button>
             </div>
             <div className='show-comments-container'>

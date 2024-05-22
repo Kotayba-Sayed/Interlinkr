@@ -127,6 +127,21 @@ function Admin() {
         }
     };
 
+    const handleDeleteUser = async (id) => {
+        try {
+            const response = await axios.delete(`usersRoute/Delete/${id}`, {
+                headers: {
+                    Authorization: token
+                }
+            });
+            console.log(response.data);
+            setUsers(users.filter(user => user.id !== id));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+
     const handleDeleteComment = async (id) => {
         try {
             const response = await axios.delete(`commentRoute/${id}`, {
@@ -272,7 +287,6 @@ function Admin() {
     
     };
 
-    
 
     const allUsers = users.map((user, index) => (
         editUserId === user.id ? renderEditForm('user', user) :
@@ -283,7 +297,7 @@ function Admin() {
             <td>{user.createdAt}</td>
             <td>{user.updatedAt}</td>
             <td>
-                <button className="moderate-button" onClick={() => handleEdit('user', user)}>Update</button>
+                <button className="moderate-button" onClick={() => handleDeleteUser(user.id)}>Delete</button>
             </td>
         </tr>
     ));
