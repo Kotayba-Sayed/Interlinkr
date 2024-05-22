@@ -40,7 +40,8 @@ export default function CreatePost() {
       const data = await response.json();
 
       if (previousPostsRef.current.length !== data.length) {
-        setPosts(data);
+        const reversedData = data.reverse(); 
+        setPosts(reversedData);
         previousPostsRef.current = data;
       }
     } catch (error) {
