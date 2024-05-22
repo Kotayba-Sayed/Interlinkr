@@ -7,9 +7,9 @@ import { useAuth } from '../context/AuthProvider';
 
 
 export default function NewComment(props) {
-    console.log(props.postId)
+    // console.log(props.postId)
     const postId = props.postId;
-    console.log(postId);
+    // console.log(postId);
     const NEW_COMMENT_URL = `commentRoute/${postId}`;
     const [newComment, setNewComment] = useState("");
     const { token } = useAuth();
@@ -29,6 +29,7 @@ export default function NewComment(props) {
                 }
             );
             setNewComment('');
+            props.new();
 
         } catch (err) {
             console.error(err);
