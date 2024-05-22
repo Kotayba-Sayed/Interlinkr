@@ -4,6 +4,7 @@ import penIcon from "./images/pen.svg";
 import Post from "./Post";
 import { useAuth } from '../context/AuthProvider';
 import { useLocation } from 'react-router-dom';
+import axios from '../api/axios';
 
 export default function CreatePost() {
   const { token } = useAuth();
@@ -17,6 +18,8 @@ export default function CreatePost() {
   const location = useLocation();
   const [message, setMessage] = useState(location.state?.message || '');
 
+  const POST_URL = `postRoute`;
+
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
@@ -29,20 +32,19 @@ export default function CreatePost() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [posts]);
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch("https://interlinkr-api-4df8d4540ce2.herokuapp.com/postRoute");
-      if (!response.ok) {
-        throw new Error("Failed to fetch posts");
-      }
-      const data = await response.json();
+      const response = await axios.get(POST_URL);
+      const data = await response.data;
+      // console.log(data)
 
       if (previousPostsRef.current.length !== data.length) {
         const reversedData = data.reverse(); 
         setPosts(reversedData);
         previousPostsRef.current = data;
+        // console.log("previousPostsRef", previousPostsRef.current)
       }
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -51,23 +53,20 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Token before request:', token);
+    // console.log('Token before request:', token);
     try {
-      const response = await fetch("https://interlinkr-api-4df8d4540ce2.herokuapp.com/postRoute", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": token
-        },
-        body: JSON.stringify({ title, content }),
-      });
-      console.log('Token after request:', token);
+      const response = await axios.post(POST_URL,
+        JSON.stringify({ title, content,
+         }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": token
+          },
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error("Failed to create post");
-      }
-
-      const newPost = await response.json();
+      const newPost = await response.data;
       setPosts([...posts, newPost]);
       setTitle('');
       setContent('');

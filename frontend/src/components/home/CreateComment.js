@@ -4,11 +4,13 @@ import axios from "../api/axios";
 import "./comments.css";
 import { useAuth } from '../context/AuthProvider';
 
-const NEW_COMMENT_URL = "commentRoute/:postId";
 
 
-export default function NewComment ({postId, username}) {
-
+export default function NewComment (props) {
+    console.log(props.postId)
+    const postId = props.postId;
+    console.log(postId);
+    const NEW_COMMENT_URL = `commentRoute/${postId}`;
     const [newComment, setNewComment] = useState("");
     const { token } = useAuth();
 
@@ -19,10 +21,9 @@ export default function NewComment ({postId, username}) {
 
         try {
             const response = await axios.post(NEW_COMMENT_URL,
-                JSON.stringify({ postId, comment: newComment, username }),
+                JSON.stringify({ theComment: newComment}),
                 {
                     headers: {
-                        'Content-Type': 'application/json',
                         Authorization: token
                     }
                 }

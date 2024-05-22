@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import axios from '../api/axios';
 import upvoteFilled from "./images/arrow-up.svg";
 import upvoteNonFilled from "./images/upvote-nonfilled.svg";
 import comments from "./images/comments.svg";
@@ -7,20 +7,26 @@ import { useAuth } from '../context/AuthProvider';
 import Comments from './Comments';
 import { Link } from 'react-router-dom';
 
+
 export default function Post(props) {
+
+    const POST_URL = `postRoute/${props.item.id}/like`;
+    const LIKE_URL = `LikeRoute`;
 
     const { token } = useAuth();
     const [count, setCount] = useState(props.item.Likes ? props.item.Likes.length : 0);
-    const [liked, setLiked] = useState(props.item.LikedByUser);
+
+    const [liked, setLiked] = useState(null);
+
     const [loading, setLoading] = useState(false);
     const [commentsVisible, setCommentsVisible] = useState(false);
+    
 
     useEffect(() => {
         async function fetchLikesCount() {
             setLoading(true);
             try {
-                const response = await axios.get(
-                    `https://interlinkr-api-4df8d4540ce2.herokuapp.com/postRoute/${props.item.id}/like`,
+                const response = await axios.get(POST_URL,
                     {
                         headers: { Authorization: token }
                     }
@@ -52,8 +58,7 @@ export default function Post(props) {
 
     const handleVote = async () => {
         try {
-            const response = await axios.post(
-                'https://interlinkr-api-4df8d4540ce2.herokuapp.com/LikeRoute',
+            const response = await axios.post(LIKE_URL,
                 { PostId: props.item.id },
                 {
                     headers: { Authorization: token }
@@ -91,10 +96,11 @@ export default function Post(props) {
             <div className="content">
                 <p>{props.item.content}</p>
             </div>
+
             <div className="reactions">
                 <div className="upvote-downvote">
                     <button id="upvote" onClick={handleVote} disabled={loading}>
-                        <img src={liked ? upvoteFilled : upvoteNonFilled} alt="upvote-button" />
+                        <img src={upvoteNonFilled} alt="upvote-button" />
                     </button>
                     <h3>{count}</h3>
                 </div>
@@ -104,7 +110,7 @@ export default function Post(props) {
                 </button>
             </div>
             <div className='show-comments-container'>
-                { commentsVisible ? <Comments postId={props.item.id} username={props.item.username} /> : null }
+                { commentsVisible ? <Comments postId={props.item.id}/> : null }
             </div>
         </section>
     );

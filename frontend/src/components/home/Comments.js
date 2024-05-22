@@ -3,8 +3,9 @@ import axios from "../api/axios";
 import "./comments.css";
 import NewComment from './CreateComment';
 
-export default function Comments ({postId, username}) {
-
+export default function Comments (props) {
+    console.log(props.postId)
+    const postId = props.postId;
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
@@ -42,7 +43,7 @@ export default function Comments ({postId, username}) {
         <>
         <div className="comments-container">
             {allComments}
-            <NewComment postId={postId} username={username} />
+            <NewComment postId={postId} />
         </div>
         </>
     );
