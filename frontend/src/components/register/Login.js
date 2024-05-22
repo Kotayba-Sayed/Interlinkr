@@ -3,7 +3,8 @@ import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../context/AuthProvider';
 import axios from '../api/axios';
-import { useLocation } from 'react-router-dom';
+import { useUsername } from "../context/UserContext";
+
 
 const LOGIN_URL = 'usersRoute/login';
 
@@ -15,6 +16,7 @@ const Login = () => {
     // console.log(from)
 
 
+    const { setUsername } = useUsername();
     const userRef = useRef();
     const pwdRef = useRef();
     const errRef = useRef();
@@ -48,6 +50,9 @@ const Login = () => {
 
             setUser('');
             setPwd('');
+            console.log(user);
+            setUsername( user );
+
             navigate(from, {
                 replace: true,
                 state: { message: 'Login successful!' }

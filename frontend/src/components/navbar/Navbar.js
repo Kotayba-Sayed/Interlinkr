@@ -10,15 +10,18 @@ import logout from "./images/logout.svg"
 import edit from "./images/edit.svg"
 import menuProfile from "./images/menu-profile.svg"
 import { useAuth } from "../context/AuthProvider"
+import { useUsername } from "../context/UserContext"
 
 
 function Navbar() {
   const { setToken } = useAuth();
+  const { setUsername } = useUsername();
   const navigate = useNavigate();
 
 
   const handleLogout = () => {
     setToken();
+    setUsername();
     navigate("/", { replace: true });
   };
 

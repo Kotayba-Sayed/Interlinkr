@@ -13,6 +13,8 @@ import Layout from "./Layout";
 import UserProfile from "./components/user/UserProfile";
 import './App.css';
 import { Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
+import { UserProvider } from "./components/context/UserContext";
 
 
 
@@ -24,6 +26,7 @@ function App() {
 
   return (
     <>
+    <UserProvider>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="/login" element={<Login />} />
@@ -42,8 +45,12 @@ function App() {
             <Route path="/about" element={<About />}/>
 
           </Route>
-          <Route path="/admin" element={<Admin />}/>
-          <Route path="/comments" element={<Comments />}/>
+
+          <Route element={<ProtectedRoute />}>         
+            <Route path="/admin" element={<Admin />}/>
+          </Route>
+        
+          {/* <Route path="/comments" element={<Comments />}/> */}
 
 
         </Route>
@@ -51,6 +58,7 @@ function App() {
 
         </Route>
       </Routes>
+    </UserProvider>
     </>
   );
 }
