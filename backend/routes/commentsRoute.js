@@ -25,13 +25,13 @@ router.put("/:id", authenticationHandler, adminAccessHandler, async (req, res) =
   try {
     const commentId = req.params.id;
     const updatedComment = req.body;
-    const comment = await Comment.findOne({ where: { id: commentId } });
+    const comment = await comment.findOne({ where: { id: commentId } });
 
     if (comment.UserId !== req.user.id && req.user.username !== 'admin') {
       return res.status(403).json({ error: 'You are not authorized to edit this comment' });
     }
 
-    await Comment.update(updatedComment, { where: { id: commentId } });
+    await comment.update(updatedComment, { where: { id: commentId } });
     res.json(updatedComment);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -41,13 +41,13 @@ router.put("/:id", authenticationHandler, adminAccessHandler, async (req, res) =
 router.delete("/:id", authenticationHandler, adminAccessHandler, async (req, res) => {
   try {
     const commentId = req.params.id;
-    const comment = await Comment.findOne({ where: { id: commentId } });
+    const comment = await comment.findOne({ where: { id: commentId } });
 
     if (comment.UserId !== req.user.id && req.user.username !== 'admin') {
       return res.status(403).json({ error: 'You are not authorized to delete this comment' });
     }
 
-    await Comment.destroy({ where: { id: commentId } });
+    await comment.destroy({ where: { id: commentId } });
     res.json({ message: 'Comment deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -20,7 +20,7 @@ export default function Post(props) {
 
     const [loading, setLoading] = useState(false);
     const [commentsVisible, setCommentsVisible] = useState(false);
-    
+
 
     useEffect(() => {
         async function fetchLikesCount() {
@@ -43,12 +43,12 @@ export default function Post(props) {
 
 
     const showComments = () => {
-        if(!commentsVisible) {
+        if (!commentsVisible) {
             setCommentsVisible(true);
         } else {
             setCommentsVisible(false);
         }
-        
+
     };
 
     const formatDate = (dateString) => {
@@ -89,9 +89,9 @@ export default function Post(props) {
                         {props.item.username}
                     </Link>
                 </div>
-            
+
             </div>
-                <p className='timeAgo'>Created {formatDate(props.item.createdAt)}</p>
+            <p className='timeAgo'>Created {formatDate(props.item.createdAt)}</p>
 
             <div className="content">
                 <p>{props.item.content}</p>
@@ -110,7 +110,7 @@ export default function Post(props) {
                 </button>
             </div>
             <div className='show-comments-container'>
-                { commentsVisible ? <Comments postId={props.item.id}/> : null }
+                {commentsVisible && <Comments postId={props.item.id} />}
             </div>
         </section>
     );
