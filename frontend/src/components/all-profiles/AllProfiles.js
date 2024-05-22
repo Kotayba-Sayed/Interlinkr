@@ -24,19 +24,19 @@ function AllProfiles () {
         fetchUsers();
     }, []);
 
-
+    // Show all profiles, except for admin
     return (
         <>
         <div className="all-profiles-container">
             <h2 id="all-users-title">All Profiles</h2>
             <div className="all-users">
-                {users.map((user) => (
-                  
-                  // --------------ADD CODE TO LINK HERE-----------------
-                  <Link className="username-link" key={user.id} to={`${user.id}`}>
-                    {user.username}
-                  </Link>
-                  ))}
+                  {users.map((user) => (
+                        user.username !== 'admin' && (
+                            <Link className="username-link" key={user.id} to={`${user.id}`}>
+                                {user.username}
+                            </Link>
+                        )
+                    ))}
             </div>
         </div>
         </>
