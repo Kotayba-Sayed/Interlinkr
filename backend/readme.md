@@ -45,7 +45,6 @@ DELETE /commentRoute/:id: Delete a comment (admin access required).
 
 
 Contributors
-[Your Name]
 [Kotayba Sayed]
 
 
