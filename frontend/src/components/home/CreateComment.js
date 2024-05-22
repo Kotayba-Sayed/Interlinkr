@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthProvider';
 
 
 
-export default function NewComment (props) {
+export default function NewComment(props) {
     console.log(props.postId)
     const postId = props.postId;
     console.log(postId);
@@ -16,51 +16,48 @@ export default function NewComment (props) {
 
 
     const createNewComment = async (e) => {
-
         e.preventDefault();
 
         try {
-            const response = await axios.post(NEW_COMMENT_URL,
-                JSON.stringify({ theComment: newComment}),
+            const response = await axios.post(
+                NEW_COMMENT_URL,
+                { theComment: newComment },
                 {
                     headers: {
                         Authorization: token
                     }
                 }
             );
-
-            // const Newtoken = response?.data?.token;
-
-            setNewComment("");
+            setNewComment('');
 
         } catch (err) {
             console.error(err);
         }
+    };
 
-    }
 
 
     return (
         <>
-        <div className="comment-container">
-            <form onSubmit={createNewComment} className='new-comment-form'>
-                <span className='new-comment-span'>
-                    <input 
-                    type="text"
-                    id='new-comment'
-                    placeholder='Add a comment...'
-                    autoComplete='off'
-                    onChange={(e) => setNewComment(e.target.value)}
-                    value={newComment}
-                    required
-                    className='new-comment'
-                    />
-                    <button className={newComment==="" ? "new-comment-button-hide" : "new-comment-button"} type="submit">
-                        <img src={sendComment} alt="upvote-button" className="send-comment-image" />
-                    </button>
-                </span>
-            </form>
-        </div>
+            <div className="comment-container">
+                <form onSubmit={createNewComment} className='new-comment-form'>
+                    <span className='new-comment-span'>
+                        <input
+                            type="text"
+                            id='new-comment'
+                            placeholder='Add a comment...'
+                            autoComplete='off'
+                            onChange={(e) => setNewComment(e.target.value)}
+                            value={newComment}
+                            required
+                            className='new-comment'
+                        />
+                        <button className={newComment === "" ? "new-comment-button-hide" : "new-comment-button"} type="submit">
+                            <img src={sendComment} alt="upvote-button" className="send-comment-image" />
+                        </button>
+                    </span>
+                </form>
+            </div>
         </>
     );
 
