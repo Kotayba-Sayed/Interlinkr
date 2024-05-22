@@ -4,24 +4,26 @@ import "./comments.css";
 import NewComment from './CreateComment';
 
 export default function Comments (props) {
-    console.log(props.postId)
+    // console.log(props.postId)
     const postId = props.postId;
     const [comments, setComments] = useState([]);
+    // console.log(comments)
+
+
+    const getComments = async () => {
+        try {
+            const response = await axios.get(`commentRoute/${postId}`);
+            setComments(response.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     useEffect(() => {
 
-        const getComments = async () => {
-            try {
-                const response = await axios.get(`commentRoute/${postId}`);
-                setComments(response.data);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
         getComments();
 
-    }, []);
+    }, [postId]);
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -43,7 +45,7 @@ export default function Comments (props) {
         <>
         <div className="comments-container">
             {allComments}
-            <NewComment postId={postId} />
+            <NewComment postId={postId} new={getComments} />
         </div>
         </>
     );

@@ -8,6 +8,7 @@ import infoIcon from "./images/info.svg"
 import profileIcon from "./images/profile.svg"
 import logout from "./images/logout.svg"
 import edit from "./images/edit.svg"
+import adminIcon from "./images/administrator.svg"
 import menuProfile from "./images/menu-profile.svg"
 import { useAuth } from "../context/AuthProvider"
 import { useUsername } from "../context/UserContext"
@@ -16,6 +17,7 @@ import { useUsername } from "../context/UserContext"
 function Navbar() {
   const { setToken } = useAuth();
   const { setUsername } = useUsername();
+  const { username } = useUsername();
   const navigate = useNavigate();
 
 
@@ -48,6 +50,12 @@ function Navbar() {
               <Link className="navbar-link" to="/about">
                 <img id='info-logo' src={infoIcon} alt='info-view'></img>
               </Link>
+
+              {username === 'admin' &&
+                <Link className="navbar-link" to="/admin">
+                  <img id='info-logo' src={adminIcon} alt='info-view'></img>
+                </Link>
+              }
                 
           </div>
 

@@ -44,11 +44,13 @@ function App() {
             <Route path="profiles/:id" element={<UserProfile />}/>
             <Route path="/about" element={<About />}/>
 
+            <Route element={<ProtectedRoute />}>         
+              <Route path="/admin" element={<Admin />}/>
+            </Route>
+            
+
           </Route>
 
-          <Route element={<ProtectedRoute />}>         
-            <Route path="/admin" element={<Admin />}/>
-          </Route>
         
           {/* <Route path="/comments" element={<Comments />}/> */}
 
